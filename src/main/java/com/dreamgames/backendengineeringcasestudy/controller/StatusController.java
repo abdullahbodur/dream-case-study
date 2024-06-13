@@ -3,7 +3,7 @@ package com.dreamgames.backendengineeringcasestudy.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// It is implemented to check server status. Don't modify this class.
+// It is implemented to check server status. Don't modify class.
 
 @RestController
 public class StatusController {

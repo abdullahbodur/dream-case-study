@@ -1,18 +1,23 @@
 package com.dreamgames.backendengineeringcasestudy.dto.request;
 
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 /**
- * This record is used to transfer data when creating a new User record.
+ * record is used to transfer data when creating a new User record.
  *
- * @param email           This is the email of the user being created.
- * @param nickname        This is the nickname of the user being created.
- * @param password        This is the password of the user being created.
- * @param passwordConfirm This is the password confirmation for the user being created.
+ * @param email           email of the user being created.
+ * @param nickname        nickname of the user being created.
+ * @param password        password of the user being created.
+ * @param passwordConfirm password confirmation for the user being created.
  */
 public record CreateUserDTO(
-    String email,
-    String nickname,
-    String password,
-    String passwordConfirm
+    @Email @NotBlank String email,
+    @NotBlank @Size(min = 3, max = 20) String nickname,
+    @NotBlank @Size(min = 8, max = 40) String password,
+    @NotBlank @Size(min = 8, max = 40) String passwordConfirm
 ) {
 
 }
