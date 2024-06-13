@@ -11,5 +11,5 @@ Add brief explanation of how you organized your implementation and the choices y
 - [ ] Write github workflow to run the tests
 - [ ] Optimize dockerfile for the application
 - [ ] Optimize the code for better performance
-  - [ ] Add Redis for caching the results
+  - [ ] Add Redis for caching the tournament live data
   - [ ] Add a queue for processing the requests
