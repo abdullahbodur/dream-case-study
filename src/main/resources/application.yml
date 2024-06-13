@@ -19,3 +19,9 @@ spring:
   sql:
     init:
       mode: always
+business:
+  user:
+    default:
+      coinAmount: ${DEFAULT_COIN_AMOUNT:5000}
+    onLevelUp:
+      coinAmount: ${RECEIVE_COIN_AMOUNT:25}
