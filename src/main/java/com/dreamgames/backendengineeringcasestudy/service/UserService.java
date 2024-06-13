@@ -24,7 +24,7 @@ public class UserService {
 
   public UserDTO createUser(CreateUserDTO userDTO) {
     User user = new User();
-    user.setUsername(nicknameGenerator.makeNicknameUnique(userDTO.nickname()));
+    user.setNickname(nicknameGenerator.makeNicknameUnique(userDTO.nickname()));
     user.setEmail(userDTO.email());
     user.setPassword(digestUtils.hash(userDTO.password()));
     userRepository.save(user);

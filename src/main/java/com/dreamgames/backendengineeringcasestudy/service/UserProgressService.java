@@ -3,7 +3,9 @@ package com.dreamgames.backendengineeringcasestudy.service;
 import com.dreamgames.backendengineeringcasestudy.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.dto.response.utils.UserProgressMapper;
 import com.dreamgames.backendengineeringcasestudy.entity.UserProgress;
+import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.repository.UserProgressRepository;
+import com.dreamgames.backendengineeringcasestudy.utils.EnumRandomPicker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,14 +14,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserProgressService {
 
-  /**
-   * The user repository.
-   */
   private final UserProgressRepository userProgressRepository;
-  /**
-   * The user progress mapper.
-   */
+
   private final UserProgressMapper userProgressMapper;
+
+  private final EnumRandomPicker enumRandomPicker;
 
   @Value("${business.user.default.coinAmount}")
   private double defaultCoinAmount;
@@ -28,24 +27,25 @@ public class UserProgressService {
   private double levelUpReward;
 
   /**
-   * This method is used to create a new UserProgress record.
+   * method is used to create a new UserProgress record.
    *
-   * @param userId This is the ID of the user for whom the progress record is being created.
-   * @return UserProgressDTO This returns a DTO object that contains the user's progress details.
+   * @param userId ID of the user for whom the progress record is being created.
+   * @return UserProgressDTO returns a DTO object that contains the user's progress details.
    */
   public UserProgressDTO createUser(Long userId) {
     UserProgress userProgress = new UserProgress();
     userProgress.setId(userId);
     userProgress.setCoinBalance(defaultCoinAmount);
+    userProgress.setCountry(enumRandomPicker.getRandomEnum(Country.class));
     userProgressRepository.save(userProgress);
     return userProgressMapper.apply(userProgress);
   }
 
   /**
-   * This method is used to update the level of a user.
+   * method is used to update the level of a user.
    *
-   * @param userId This is the ID of the user whose level is to be updated.
-   * @return UserProgressDTO This returns a DTO object that contains the user's progress details.
+   * @param userId ID of the user whose level is to be updated.
+   * @return UserProgressDTO returns a DTO object that contains the user's progress details.
    */
   public UserProgressDTO updateLevel(Long userId) {
     UserProgress userProgress = userProgressRepository.findById(userId).orElseThrow();
@@ -56,10 +56,10 @@ public class UserProgressService {
   }
 
   /**
-   * This method is used to retrieve a UserProgress record by its ID.
+   * method is used to retrieve a UserProgress record by its ID.
    *
-   * @param id This is the ID of the UserProgress record.
-   * @return UserProgressDTO This returns a DTO object that contains the user's progress details.
+   * @param id ID of the UserProgress record.
+   * @return UserProgressDTO returns a DTO object that contains the user's progress details.
    */
   public UserProgressDTO getUserProgress(Long id) {
     UserProgress userProgress = userProgressRepository.findById(id).orElseThrow();
