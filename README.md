@@ -3,6 +3,15 @@
 Add brief explanation of how you organized your implementation and the choices you made in terms of design while solving problems
 
 
+### Redis Methodology 
+With redis methodology, microservice is capable of holding high throughput and decreased latency on related features 
+#### Hot Waiting Room for New Tournament Groups
+
+#### Live Ranking Mechanism.
+
+#### Updated Level Details with Redis.
+
+
 ### TODO
 - [x] Create a simple spring boot application that creates table in the database 
 - [ ] Add custom exception handling
@@ -11,5 +20,6 @@ Add brief explanation of how you organized your implementation and the choices y
 - [ ] Write github workflow to run the tests
 - [ ] Optimize dockerfile for the application
 - [ ] Optimize the code for better performance
-  - [ ] Add Redis for caching the tournament live data
+  - [ ] Update Level Up request with redis that we can store updated live data without waiting too much time.
+  - [ ] Add live leaderboard with respect to given scorings. (Consider by Country and Group)
   - [ ] Add a queue for processing the requests

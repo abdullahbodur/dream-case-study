@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Data Transfer Object (DTO) class for a user. It is used to send user data over the
- * network or to save user data in the database.
+ * Data Transfer Object (DTO) class for a user. It is used to send user data over the network or to
+ * save user data in the database.
  */
 @AllArgsConstructor
 @Getter
@@ -19,9 +19,9 @@ public class UserDTO {
   private Long id;
 
   /**
-   * username of the user.
+   * nickname of the user.
    */
-  private String username;
+  private String nickname;
 
   /**
    * email of the user.

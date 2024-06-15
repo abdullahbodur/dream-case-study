@@ -1,6 +1,7 @@
 package com.dreamgames.backendengineeringcasestudy.dto.request;
 
 
+import com.dreamgames.backendengineeringcasestudy.validation.PasswordMatches;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -13,6 +14,7 @@ import jakarta.validation.constraints.Size;
  * @param password        password of the user being created.
  * @param passwordConfirm password confirmation for the user being created.
  */
+@PasswordMatches
 public record CreateUserDTO(
     @Email @NotBlank String email,
     @NotBlank @Size(min = 3, max = 20) String nickname,

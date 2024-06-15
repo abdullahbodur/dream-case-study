@@ -4,6 +4,7 @@ import com.dreamgames.backendengineeringcasestudy.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.dto.response.utils.UserProgressMapper;
 import com.dreamgames.backendengineeringcasestudy.entity.UserProgress;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
+import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.repository.UserProgressRepository;
 import com.dreamgames.backendengineeringcasestudy.utils.EnumRandomPicker;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class UserProgressService {
   public UserProgressDTO createUser(Long userId) {
     UserProgress userProgress = new UserProgress();
     userProgress.setId(userId);
+    userProgress.setLevel(1);
     userProgress.setCoinBalance(defaultCoinAmount);
     userProgress.setCountry(enumRandomPicker.getRandomEnum(Country.class));
     userProgressRepository.save(userProgress);
@@ -48,7 +50,9 @@ public class UserProgressService {
    * @return UserProgressDTO returns a DTO object that contains the user's progress details.
    */
   public UserProgressDTO updateLevel(Long userId) {
-    UserProgress userProgress = userProgressRepository.findById(userId).orElseThrow();
+    UserProgress userProgress = userProgressRepository.findById(userId).orElseThrow(
+        () -> new EntityNotFoundException("User progress record not found for user ID: " + userId)
+    );
     userProgress.setLevel(userProgress.getLevel() + 1);
     userProgress.setCoinBalance(userProgress.getCoinBalance() + levelUpReward);
     userProgressRepository.save(userProgress);
@@ -62,9 +66,9 @@ public class UserProgressService {
    * @return UserProgressDTO returns a DTO object that contains the user's progress details.
    */
   public UserProgressDTO getUserProgress(Long id) {
-    UserProgress userProgress = userProgressRepository.findById(id).orElseThrow();
+    UserProgress userProgress = userProgressRepository.findById(id).orElseThrow(
+        () -> new EntityNotFoundException("User progress record not found for user ID: " + id)
+    );
     return userProgressMapper.apply(userProgress);
   }
-
-
 }

@@ -6,6 +6,7 @@ import com.dreamgames.backendengineeringcasestudy.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.service.UserProgressService;
 import com.dreamgames.backendengineeringcasestudy.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,7 @@ public class UserProgressController {
   @PostMapping
   public UserProgressDTO createUser(
       @RequestBody
+      @Validated
       CreateUserDTO requestDTO) {
     UserDTO userDTO = userService.createUser(requestDTO);
     return userProgressService.createUser(userDTO.getId());
@@ -46,7 +48,9 @@ public class UserProgressController {
    * @return UserProgressDTO returns a DTO object that contains the user's progress details.
    */
   @PutMapping("/updateLevel")
-  public UserProgressDTO updateLevel(Long userId) {
+  public UserProgressDTO updateLevel(
+      @Validated
+      Long userId) {
     return userProgressService.updateLevel(userId);
   }
 }
