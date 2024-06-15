@@ -20,7 +20,7 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests
       # Run tests
       - name: Test with Maven and generate report
-        run: mvn -Ptest test
+        run: mvn test
       # Upload test report
       - name: Upload test report
         uses: actions/upload-artifact@v4

@@ -92,6 +92,11 @@
       <artifactId>spring-data-redis</artifactId>
       <version>${springboot.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
     <!-- TESTING -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -139,16 +144,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>test</id>
-      <dependencies>
-        <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
 </project>
