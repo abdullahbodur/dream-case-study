@@ -21,6 +21,9 @@ jobs:
       # Run tests
       - name: Test with Maven and generate report
         run: mvn -Ptest test surefire-report:report
+      # Upload test report
+      - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
-          name: target/site
+          name: surefire-reports
+          path: target/site
