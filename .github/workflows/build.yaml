@@ -20,10 +20,10 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests
       # Run tests
       - name: Test with Maven and generate report
-        run: mvn -Ptest test surefire-report:report
+        run: mvn -Ptest test
       # Upload test report
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-reports
-          path: target/site
+          name: jacoco
+          path: target/site/jacoco
