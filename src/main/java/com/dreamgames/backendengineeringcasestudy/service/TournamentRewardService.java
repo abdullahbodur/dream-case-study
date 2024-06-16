@@ -4,6 +4,7 @@ import com.dreamgames.backendengineeringcasestudy.dto.response.GroupLeaderboardD
 import com.dreamgames.backendengineeringcasestudy.dto.response.GroupLeaderboardUserDTO;
 import com.dreamgames.backendengineeringcasestudy.dto.response.RewardDTO;
 import com.dreamgames.backendengineeringcasestudy.dto.response.TournamentDTO;
+import com.dreamgames.backendengineeringcasestudy.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.dto.response.utils.RewardDTOMapper;
 import com.dreamgames.backendengineeringcasestudy.entity.Reward;
 import com.dreamgames.backendengineeringcasestudy.entity.Tournament;
@@ -101,7 +102,7 @@ public class TournamentRewardService {
    * @throws EntityNotFoundException If no unclaimed reward is found for the user in the
    *                                 tournament.
    */
-  public RewardDTO claimReward(Long userId, Long tournamentId) {
+  public UserProgressDTO claimReward(Long userId, Long tournamentId) {
     Reward reward = rewardRepository.findByTournamentIdAndUserId(tournamentId, userId)
         .orElseThrow(() -> new EntityNotFoundException(
             "Reward not found for user " + userId + " in tournament " + tournamentId));
@@ -111,8 +112,7 @@ public class TournamentRewardService {
     }
     reward.setClaimed(true);
     rewardRepository.save(reward);
-    progressService.depositCoins(userId, reward.getAmount());
-    return rewardDTOMapper.apply(reward);
+    return progressService.depositCoins(userId, reward.getAmount());
   }
 
   /**

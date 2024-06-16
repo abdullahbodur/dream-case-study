@@ -68,7 +68,8 @@ public class TournamentController {
   public GroupLeaderboardUserRankDTO getRank(@PathVariable Long userId,
       @PathVariable Long tournamentId) {
     if (scheduleService.getCurrentTournament().getId().equals(tournamentId)) {
-      return leaderboardService.getCurrentTournamentGroupUserRank(tournamentId, userId);
+      Long groupId = leaderboardService.getGroupIdForUser(userId);
+      return leaderboardService.getCurrentTournamentGroupUserRank(groupId, userId);
     } else {
       return leaderboardService.getHistoricalTournamentUserRank(tournamentId, userId);
     }
@@ -99,7 +100,7 @@ public class TournamentController {
    * @return RewardDTO object representing the claimed reward.
    */
   @PostMapping("/claimReward")
-  public RewardDTO claimReward(@RequestBody @Validated ClaimRewardRequestDTO requestDTO) {
+  public UserProgressDTO claimReward(@RequestBody @Validated ClaimRewardRequestDTO requestDTO) {
     return rewardService.claimReward(requestDTO.userId(), requestDTO.tournamentId());
   }
 }

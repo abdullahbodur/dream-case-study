@@ -17,6 +17,7 @@ import com.dreamgames.backendengineeringcasestudy.service.TournamentLeaderboardS
 import com.dreamgames.backendengineeringcasestudy.service.UserProgressService;
 import com.dreamgames.backendengineeringcasestudy.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -49,6 +50,7 @@ public class UserProgressControllerTest {
   private TournamentLeaderboardService leaderboardService;
 
   @Test
+  @DisplayName("Test create user")
   public void testCreateUser() throws Exception {
     CreateUserDTO requestDTO = new CreateUserDTO("test@test.com",
         "testuser",
@@ -79,6 +81,7 @@ public class UserProgressControllerTest {
   }
 
   @Test
+  @DisplayName("Test Update Level with User Not Ready For New Tournament")
   public void testUpdateLevelWithUserNotReadyForNewTournament() throws Exception {
     Long userId = 1L;
 
@@ -102,6 +105,7 @@ public class UserProgressControllerTest {
   }
 
   @Test
+  @DisplayName("Test Update Level with User Ready For New Tournament")
   public void testUpdateLevelWithUserReadyForNewTournament() throws Exception {
     Long userId = 1L;
 

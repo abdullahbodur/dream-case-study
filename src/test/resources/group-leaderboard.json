@@ -1,0 +1,35 @@
+{
+  "groupId": 1,
+  "leaderboard": [
+    {
+      "userId": 1,
+      "nickname": "John",
+      "country": "UNITED_STATES",
+      "tournamentScore": 100
+    },
+    {
+      "userId": 2,
+      "nickname": "Jane",
+      "country": "GERMANY",
+      "tournamentScore": 90
+    },
+    {
+      "userId": 3,
+      "nickname": "Alice",
+      "country": "TURKEY",
+      "tournamentScore": 80
+    },
+    {
+      "userId": 4,
+      "nickname": "Bob",
+      "country": "FRANCE",
+      "tournamentScore": 70
+    },
+    {
+      "userId": 5,
+      "nickname": "Charlie",
+      "country": "UNITED_KINGDOM",
+      "tournamentScore": 60
+    }
+  ]
+}

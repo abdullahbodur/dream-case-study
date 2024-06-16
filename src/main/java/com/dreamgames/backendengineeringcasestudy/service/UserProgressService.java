@@ -125,11 +125,12 @@ public class UserProgressService {
    * @param userId ID of the user to whom the coins are to be deposited.
    * @param amount the amount of coins to be deposited.
    */
-  public void depositCoins(Long userId, double amount) {
+  public UserProgressDTO depositCoins(Long userId, double amount) {
     UserProgress userProgress = userProgressRepository.findById(userId).orElseThrow(
         () -> new EntityNotFoundException("User progress record not found for user ID: " + userId)
     );
     userProgress.setCoinBalance(userProgress.getCoinBalance() + amount);
     userProgressRepository.save(userProgress);
+    return userProgressMapper.apply(userProgress);
   }
 }
