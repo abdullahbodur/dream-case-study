@@ -31,6 +31,11 @@ public class UserProgress {
   private double coinBalance;
 
   /**
+   * nickname of the user.
+   */
+  private String nickname;
+
+  /**
    * level of the user.
    */
   private int level;

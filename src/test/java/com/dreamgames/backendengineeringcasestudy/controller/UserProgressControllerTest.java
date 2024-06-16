@@ -50,17 +50,19 @@ public class UserProgressControllerTest {
 
     UserDTO userDTO = new UserDTO(
         1L,
-        "testuser",
         "test@test.com");
 
     UserProgressDTO userProgressDTO = new UserProgressDTO(
         1L,
         5000,
         1,
+        "testuser",
         Country.UNITED_STATES);
 
     when(userService.createUser(any(CreateUserDTO.class))).thenReturn(userDTO);
-    when(userProgressService.createUser(any(Long.class))).thenReturn(userProgressDTO);
+    when(userProgressService.createUser(any(Long.class),
+        any(String.class)
+    )).thenReturn(userProgressDTO);
 
     mockMvc.perform(post("/api/v1/userProgress").contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(requestDTO))).andExpect(status().isOk());
@@ -74,6 +76,7 @@ public class UserProgressControllerTest {
         1L,
         5000,
         1,
+        "testuser",
         Country.UNITED_STATES);
 
     when(userProgressService.updateLevel(any(Long.class))).thenReturn(userProgressDTO);

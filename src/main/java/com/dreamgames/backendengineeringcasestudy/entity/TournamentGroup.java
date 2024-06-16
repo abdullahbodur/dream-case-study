@@ -1,37 +1,34 @@
 package com.dreamgames.backendengineeringcasestudy.entity;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Entity class for a user. It is used to map the User table in the database to a Java
- * object.
- */
 @Entity
 @Getter
 @Setter
-@Table(name = "User", schema = "public")
-public class User {
+@Table(name = "TournamentGroup", schema = "public")
+public class TournamentGroup {
 
-  /**
-   * unique identifier for a user.
-   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  /**
-   * email of the user.
-   */
-  private String email;
+  @ManyToOne
+  @JoinColumn(name = "tournamentId")
+  private Tournament tournament;
 
-  /**
-   * password of the user.
-   */
-  private String password;
+  private boolean isReady;
+
+  @ElementCollection
+  private List<Integer> scores;
+
 }

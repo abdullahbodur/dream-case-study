@@ -26,6 +26,7 @@ public class UserProgressMapper implements Function<UserProgress, UserProgressDT
         entity.getId(),
         entity.getCoinBalance(),
         entity.getLevel(),
+        entity.getNickname(),
         entity.getCountry()
     );
   }

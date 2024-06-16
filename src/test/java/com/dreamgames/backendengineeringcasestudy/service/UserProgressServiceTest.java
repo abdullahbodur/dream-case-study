@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,6 +18,7 @@ import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.repository.UserProgressRepository;
 import com.dreamgames.backendengineeringcasestudy.utils.EnumRandomPicker;
+import com.dreamgames.backendengineeringcasestudy.utils.NicknameGenerator;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,12 +33,12 @@ public class UserProgressServiceTest {
   private UserProgressService userProgressService;
   @Mock
   private UserProgressRepository userProgressRepository;
-
   @Mock
   private UserProgressMapper userProgressMapper;
-
   @Mock
   private EnumRandomPicker enumRandomPicker;
+  @Mock
+  private NicknameGenerator nicknameGenerator;
 
   @BeforeEach
   public void setUp() {
@@ -63,14 +65,16 @@ public class UserProgressServiceTest {
         userId,
         5000,
         1,
+        "nickname_1",
         Country.UNITED_STATES
     );
 
     when(enumRandomPicker.getRandomEnum(Country.class)).thenReturn(Country.UNITED_STATES);
     when(userProgressRepository.save(any(UserProgress.class))).thenReturn(userProgress);
     when(userProgressMapper.apply(any(UserProgress.class))).thenReturn(userProgressDTO);
+    when(nicknameGenerator.makeNicknameUnique(anyString())).thenReturn("nickname_1");
 
-    UserProgressDTO result = userProgressService.createUser(userId);
+    UserProgressDTO result = userProgressService.createUser(userId, "nickname");
 
     assertEquals(result.getId(), userId);
     assertEquals(result.getLevel(), 1);
@@ -80,10 +84,12 @@ public class UserProgressServiceTest {
     verify(userProgressRepository, times(1)).save(argThat(
         argument -> argument.getId().equals(userId) &&
             argument.getLevel() == 1 &&
+            argument.getNickname().equals("nickname_1") &&
             argument.getCoinBalance() == 5000 &&
             argument.getCountry().equals(Country.UNITED_STATES)
     ));
     verify(userProgressMapper, times(1)).apply(any(UserProgress.class));
+    verify(nicknameGenerator, times(1)).makeNicknameUnique("nickname");
   }
 
   @Test
@@ -99,19 +105,21 @@ public class UserProgressServiceTest {
         userId,
         5000 + 25,
         2,
+        "nickname_1",
         Country.UNITED_STATES
     );
 
     when(userProgressRepository.findById(anyLong())).thenReturn(Optional.of(userProgress));
     when(userProgressRepository.save(any(UserProgress.class))).thenReturn(userProgress);
     when(userProgressMapper.apply(any(UserProgress.class))).thenReturn(userProgressDTO);
-
+    when(enumRandomPicker.getRandomEnum(Country.class)).thenReturn(Country.UNITED_STATES);
     UserProgressDTO result = userProgressService.updateLevel(userId);
 
     assertEquals(result.getId(), userId);
     assertEquals(result.getLevel(), 2);
     assertEquals(result.getCoinBalance(), 5000 + 25);
     assertEquals(result.getCountry(), Country.UNITED_STATES);
+    assertEquals(result.getNickname(), "nickname_1");
 
     verify(userProgressRepository, times(1)).findById(anyLong());
     verify(userProgressRepository, times(1)).save(any(UserProgress.class));
@@ -131,6 +139,7 @@ public class UserProgressServiceTest {
         userId,
         5000,
         1,
+        "nickname_1",
         Country.UNITED_STATES
     );
 
@@ -143,6 +152,7 @@ public class UserProgressServiceTest {
     assertEquals(result.getLevel(), 1);
     assertEquals(result.getCoinBalance(), 5000);
     assertEquals(result.getCountry(), Country.UNITED_STATES);
+    assertEquals(result.getNickname(), "nickname_1");
 
     verify(userProgressRepository, times(1)).findById(anyLong());
     verify(userProgressMapper, times(1)).apply(any(UserProgress.class));

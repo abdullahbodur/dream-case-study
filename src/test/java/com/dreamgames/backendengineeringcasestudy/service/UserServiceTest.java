@@ -34,9 +34,6 @@ public class UserServiceTest {
   private UserRepository userRepository;
 
   @Mock
-  private NicknameGenerator nicknameGenerator;
-
-  @Mock
   private UserDTOMapper userDTOMapper;
   @Mock
   private DigestUtils digestUtils;
@@ -62,25 +59,20 @@ public class UserServiceTest {
     );
 
     User user = new User();
-    user.setNickname("test");
     user.setEmail("test@test.com");
     user.setPassword("hashed_password");
 
     UserDTO userDTO = new UserDTO(
         1L,
-        "test",
         "test@test.com"
     );
-    when(nicknameGenerator.makeNicknameUnique(anyString())).thenReturn("test");
     when(digestUtils.hash(anyString())).thenReturn("hashed_password");
     when(userRepository.save(any(User.class))).thenReturn(user);
     when(userDTOMapper.apply(any(User.class))).thenReturn(userDTO);
     UserDTO result = userService.createUser(createUserDTO);
 
-    assertEquals(result.getNickname(), "test");
     assertEquals(result.getEmail(), "test@test.com");
 
-    verify(nicknameGenerator, times(1)).makeNicknameUnique(anyString());
     verify(digestUtils, times(1)).hash(anyString());
     verify(userRepository, times(1)).save(any(User.class));
   }
@@ -90,13 +82,11 @@ public class UserServiceTest {
     Long id = 2L;
     User user = new User();
     user.setId(id);
-    user.setNickname("test");
     user.setEmail("test@test.com");
     user.setPassword("hashed_password");
 
     UserDTO userDTO = new UserDTO(
         id,
-        "test",
         "test@test.com"
     );
 
@@ -106,7 +96,6 @@ public class UserServiceTest {
     UserDTO result = userService.getUser(id);
 
     assertEquals(result.getId(), id);
-    assertEquals(result.getNickname(), "test");
     assertEquals(result.getEmail(), "test@test.com");
 
     verify(userRepository, times(1)).findById(anyLong());
@@ -118,13 +107,11 @@ public class UserServiceTest {
     String email = "test@test.com";
     User user = new User();
     user.setId(1L);
-    user.setNickname("test");
     user.setEmail(email);
     user.setPassword("hashed_password");
 
     UserDTO userDTO = new UserDTO(
         1L,
-        "test",
         email
     );
 
@@ -134,7 +121,6 @@ public class UserServiceTest {
     UserDTO result = userService.getUserByEmail(email);
 
     assertEquals(result.getId(), 1L);
-    assertEquals(result.getNickname(), "test");
     assertEquals(result.getEmail(), email);
 
     verify(userRepository, times(1)).findByEmail(anyString());

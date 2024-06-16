@@ -4,19 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.ZonedDateTime;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Entity class for a user. It is used to map the User table in the database to a Java
- * object.
- */
 @Entity
 @Getter
 @Setter
-@Table(name = "User", schema = "public")
-public class User {
+@Table(name = "Tournament", schema = "public")
+public class Tournament {
 
   /**
    * unique identifier for a user.
@@ -26,12 +25,17 @@ public class User {
   private Long id;
 
   /**
-   * email of the user.
+   * name of the tournament.
    */
-  private String email;
+  private ZonedDateTime startTime;
 
   /**
-   * password of the user.
+   * email of the user.
    */
-  private String password;
+  private ZonedDateTime endTime;
+
+  private boolean isCompleted;
+
+  @OneToMany(mappedBy = "tournament")
+  private List<TournamentGroup> groups;
 }

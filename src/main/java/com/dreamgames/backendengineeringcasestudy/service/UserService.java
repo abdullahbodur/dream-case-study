@@ -6,21 +6,22 @@ import com.dreamgames.backendengineeringcasestudy.dto.response.utils.UserDTOMapp
 import com.dreamgames.backendengineeringcasestudy.entity.User;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.repository.UserRepository;
-import com.dreamgames.backendengineeringcasestudy.utils.NicknameGenerator;
 import com.dreamgames.backendengineeringcasestudy.utils.DigestUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for managing user progress. This service is responsible for creating, updating,
+ * and retrieving user progress records. It also checks if a user meets the minimum requirements
+ * for a new tournament, and handles the withdrawal and deposit of coins for a user.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
   private final UserRepository userRepository;
-
   private final UserDTOMapper userDTOMapper;
-
-  private final NicknameGenerator nicknameGenerator;
-
   private final DigestUtils digestUtils;
 
   /**
@@ -31,10 +32,14 @@ public class UserService {
    */
   public UserDTO createUser(CreateUserDTO userDTO) {
     User user = new User();
-    user.setNickname(nicknameGenerator.makeNicknameUnique(userDTO.nickname()));
     user.setEmail(userDTO.email());
     user.setPassword(digestUtils.hash(userDTO.password()));
-    userRepository.save(user);
+    try {
+      userRepository.save(user);
+    } catch (DataIntegrityViolationException e) {
+      throw new DataIntegrityViolationException(
+          "User with email " + userDTO.email() + " already exists.");
+    }
     return userDTOMapper.apply(user);
   }
 

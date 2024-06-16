@@ -19,9 +19,27 @@ spring:
   sql:
     init:
       mode: always
+  data:
+    redis:
+      database: ${REDIS_DATABASE:0}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:password}
+      timeout: ${REDIS_TIMEOUT:2000}
 business:
   user:
     default:
       coinAmount: ${DEFAULT_COIN_AMOUNT:5000}
     onLevelUp:
       coinAmount: ${RECEIVE_COIN_AMOUNT:25}
+  tournament:
+    timezone: ${TIMEZONE:UTC}
+    schedule:
+      start-cron: ${TOURNAMENT_START_CRON:0 0 0 * * ?}
+      end-cron: ${TOURNAMENT_END_CRON:0 0 20 * * ?}
+    rewards:
+      first-place: ${FIRST_PLACE_REWARD:10000}
+      second-place: ${SECOND_PLACE_REWARD:5000}
+    requirements:
+      minimumLevel: ${TOURNAMENT_MIN_LEVEL:20}
+      minimumCoinBalance: ${TOURNAMENT_MIN_COIN_BALANCE:1000}

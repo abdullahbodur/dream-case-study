@@ -18,10 +18,6 @@ public class UserDTO {
    */
   private Long id;
 
-  /**
-   * nickname of the user.
-   */
-  private String nickname;
 
   /**
    * email of the user.

@@ -29,6 +29,8 @@ public class UserProgressDTO {
    */
   private int level;
 
+  private String nickname;
+
   /**
    * country of the user.
    */
