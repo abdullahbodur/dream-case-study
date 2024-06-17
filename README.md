@@ -129,10 +129,8 @@ sequenceDiagram
         - [ ] Add brief explanation of how you organized your implementation and the choices you
           made in terms of
           design while solving problems.
-        - [ ] Add plantuml diagrams for the project
-        - [ ] Add how to run the application
-        - [ ] Add how to run the tests
-        - [ ] Add features of the application
+        - [X] Add plantuml diagrams for the project
+        - [X] Add how to run the application
     - [ ] Write javadoc for the functions in the project
 - [ ] Optimize the code for better performance
     - [X] Update Level Up request with redis that we can store updated live data without waiting too
