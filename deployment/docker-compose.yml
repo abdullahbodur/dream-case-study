@@ -1,17 +1,16 @@
 version: '3.9'
 
 services:
-  #  app:
-  #    image: backend-engineering-case-study:1.0
-  #    container_name: backend-engineering-case-study
-  #    build:
-  #      context: ..
-  #      dockerfile: Dockerfile
-  #    ports:
-  #      - '8080:8080'
-  #    networks:
-  #      - 'local-network'
-
+  app:
+    image: backend-engineering-case-study:1.0
+    container_name: backend-engineering-case-study
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    networks:
+      - 'local-network'
   mysqldb:
     image: mysql:8.0.28-oracle
     container_name: case-mysqldb
