@@ -67,7 +67,7 @@ public class TournamentRewardService {
    * @param rank                 The user's rank in the group.
    * @param rewardAmount         The amount of the reward.
    */
-  private void initReward(GroupLeaderboardUserDTO groupLeaderboardUser,
+  void initReward(GroupLeaderboardUserDTO groupLeaderboardUser,
       TournamentDTO tournamentDTO,
       Long groupId,
       int rank,

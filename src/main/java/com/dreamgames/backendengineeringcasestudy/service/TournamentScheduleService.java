@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -60,11 +61,14 @@ public class TournamentScheduleService {
    * if the current time is within this range.
    */
   @PostConstruct
-  public void init() {
+  private void init() {
     log.info("Tournament service initialized");
     ZonedDateTime now = ZonedDateTime.now(ZoneId.of(timezone));
     ZonedDateTime start = findNextExecutionTime(tournamentStartCron);
     ZonedDateTime end = findNextExecutionTime(tournamentEndCron);
+    System.out.println("Tournament start time: " + start);
+    System.out.println("Tournament end time: " + end);
+    System.out.println("Current time: " + now);
     log.info("Tournament start time: {}", start);
     log.info("Tournament end time: {}", end);
     log.info("Current time: {}", now);
@@ -154,7 +158,7 @@ public class TournamentScheduleService {
    * cron expressions.
    */
   @Scheduled(cron = "${business.tournament.schedule.start-cron}", zone = "${tournament.timezone}")
-  public void startTournament() {
+  private void startTournament() {
     isTournamentActive = true;
     log.info("Tournament started");
     ZonedDateTime startDate = ZonedDateTime.now(ZoneId.of(timezone));
@@ -170,7 +174,7 @@ public class TournamentScheduleService {
    * assigns rewards, cleans up the leaderboards, and sets the isTournamentActive flag to false.
    */
   @Scheduled(cron = "${business.tournament.schedule.end-cron}", zone = "${tournament.timezone}")
-  public void endTournament() {
+  private void endTournament() {
     if (!isTournamentActive) {
       log.info("Tournament is not active");
       return;
@@ -181,6 +185,7 @@ public class TournamentScheduleService {
         currentTournament = tournamentService.getActiveTournament();
       } catch (EntityNotFoundException e) {
         log.info("No active tournament found for ending");
+        isTournamentActive = false;
         return;
       }
     }

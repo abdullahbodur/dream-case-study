@@ -14,6 +14,7 @@ import com.dreamgames.backendengineeringcasestudy.dto.response.UserDTO;
 import com.dreamgames.backendengineeringcasestudy.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.service.TournamentLeaderboardService;
+import com.dreamgames.backendengineeringcasestudy.service.TournamentScheduleService;
 import com.dreamgames.backendengineeringcasestudy.service.UserProgressService;
 import com.dreamgames.backendengineeringcasestudy.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,6 +49,10 @@ public class UserProgressControllerTest {
 
   @MockBean
   private TournamentLeaderboardService leaderboardService;
+
+  @MockBean
+  private TournamentScheduleService tournamentScheduleService;
+
 
   @Test
   @DisplayName("Test create user")

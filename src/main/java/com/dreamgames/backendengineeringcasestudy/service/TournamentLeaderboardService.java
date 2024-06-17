@@ -165,8 +165,8 @@ public class TournamentLeaderboardService {
     ));
     groupLeaderboardPool.opsForValue().set(
         "groupLeaderboardPool:group:" + groupId, groupLeaderboard);
-    // add to userGroupPool
     userGroupPool.opsForValue().set("userGroupPool:" + userProgress.getId(), groupId);
+
   }
 
   /**
@@ -180,7 +180,7 @@ public class TournamentLeaderboardService {
       Long userId) {
     RewardDTO reward = tournamentRewardService.getReward(userId, tournamentId);
     UserProgressDTO progressDTO = userProgressService.getUserProgress(userId);
-    ParticipationDTO participationDTO = participationService.getParticipation(userId, tournamentId);
+    ParticipationDTO participationDTO = participationService.getParticipation(userId, reward.getGroupId());
     return new GroupLeaderboardUserRankDTO(
         reward.getCurrentRank(),
         new GroupLeaderboardUserDTO(
