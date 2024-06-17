@@ -68,6 +68,8 @@ Enterprise_Boundary(b0, "local-network") {
 
 ```mermaid
 sequenceDiagram
+    participant U as User
+    participant A as Application
     participant UserProgressService as UserProgressService
     participant TournamentService as TournamentService
     participant LeaderboardService as LeaderboardService
@@ -75,8 +77,6 @@ sequenceDiagram
     participant GroupPoolService as GroupPoolService
     participant GroupService as GroupService
     participant ParticipantService as ParticipantService
-    participant U as User
-    participant A as Application
     participant M as MySQL
     participant R as Redis
     U->>A: Enter Tournament
@@ -110,13 +110,17 @@ sequenceDiagram
     R->>LeaderboardService: Leaderboard Updated / Created
     LeaderboardService->>A: Leaderboard Updated / Created
     A->>UserProgressService: Withdraw required points
+    UserProgressService->>M Transaction: Withdraw required points
+    M->>UserProgressService: Points Withdrawn
+    UserProgressService->>A: Points Withdrawn
+    A->>U: Success
 ```
 ### TODO
 
 - [x] Create a simple spring boot application that creates table in the database
 - [ ] Add custom exception handling
     - [X] Add custom exception handling for the application
-    - [ ] Refactor error responses for the application
+    - [X] Refactor error responses for the application
 - [X] Create more complex structure for the application
 - [X] Write unit tests for the functions in `src/` directory
 - [ ] Write github workflow to run the tests
