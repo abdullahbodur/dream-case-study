@@ -85,6 +85,14 @@ class TournamentGroupPoolServiceTest {
     verify(groupPool, times(1)).opsForValue();
   }
 
+  @DisplayName("Get available group when group stack is null")
+  @Test
+  public void getAvailableGroupWhenGroupStackIsNull() {
+    when(valueOperations.get(anyString())).thenReturn(null);
+    tournamentGroupPoolService.getAvailableGroup(Country.GERMANY);
+    verify(groupPool, times(1)).opsForValue();
+  }
+
   @DisplayName("Add group to pool successfully when all country stacks are empty")
   @Test
   public void addGroupToPoolSuccessfully() {

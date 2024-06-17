@@ -23,7 +23,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.argThat;
@@ -238,6 +241,35 @@ class TournamentLeaderboardServiceTest {
     assertEquals(100, result.getUser().getTournamentScore());
   }
 
+  @DisplayName("Get current tournament group user is not found in group leaderboard")
+  @Test
+  public void getCurrentTournamentGroupUserIsNotFoundInGroupLeaderboard() {
+    Long groupId = 1L;
+    Long userId = 99L;
+    List<GroupLeaderboardUserDTO> groupLeaderboardUserDTOList = new ArrayList<>();
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(
+            1L,
+            "test",
+            Country.UNITED_STATES,
+            100));
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(
+            2L,
+            "test2",
+            Country.UNITED_STATES,
+            110
+        )
+    );
+    when(groupLeaderboardOps.get(
+        "groupLeaderboardPool:group:" + groupId
+    )).thenReturn(groupLeaderboardUserDTOList);
+    GroupLeaderboardUserRankDTO result = tournamentLeaderboardService.getCurrentTournamentGroupUserRank(
+        groupId, userId);
+    verify(groupLeaderboardOps, times(1)).get("groupLeaderboardPool:group:" + groupId);
+    assertNull(result);
+  }
+
   @DisplayName("Get current tournament group user rank with null group leaderboard")
   @Test
   public void getCurrentTournamentGroupUserRankWithNullGroupLeaderboard() {
@@ -296,6 +328,9 @@ class TournamentLeaderboardServiceTest {
   public void addScoreForUserInGroupLeaderboardWithNullGroupLeaderboard() {
     Long userId = 1L;
     int score = 100;
+    when(userGroupOps.get(
+        "userGroupPool:" + userId
+    )).thenReturn(1);
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:" + userId
     )).thenReturn(null);
@@ -495,7 +530,19 @@ class TournamentLeaderboardServiceTest {
         "userGroupPool:" + 2L
     )).thenReturn(1);
     boolean result = tournamentLeaderboardService.isUserGroupReady(groupId);
-    assertEquals(true, result);
+    assertTrue(result);
+  }
+
+
+  @DisplayName("Get group is ready when leaderboard is null")
+  @Test
+  public void getGroupIsReadyWhenLeaderboardIsNull() {
+    Long groupId = 1L;
+    when(groupLeaderboardOps.get(
+        "groupLeaderboardPool:group:" + groupId
+    )).thenReturn(null);
+    boolean result = tournamentLeaderboardService.isUserGroupReady(groupId);
+    assertFalse(result);
   }
 
 

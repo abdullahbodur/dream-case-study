@@ -225,7 +225,7 @@ public class UserProgressServiceTest {
   }
 
   @Test
-  @DisplayName("Check user fits min requirements when user does not meet the requirements")
+  @DisplayName("Check user fits min requirements when user does not meet the requirements for level")
   public void checkUserFitsMinRequirementsWhenUserDoesNotMeetRequirements() {
     UserProgressDTO userProgressDTO = new UserProgressDTO(
         1L,
@@ -237,6 +237,26 @@ public class UserProgressServiceTest {
 
     ReflectionTestUtils.setField(userProgressService, "minimumLevel", 10);
     ReflectionTestUtils.setField(userProgressService, "minimumCoinBalance", 5000);
+
+    assertThrows(
+        UserNotReadyForNewTournamentException.class,
+        () -> userProgressService.checkUserFitsMinRequirements(userProgressDTO)
+    );
+  }
+
+  @Test
+  @DisplayName("Check user fits min requirements when user does not meet the requirements for coin balance")
+  public void checkUserFitsMinRequirementsWhenUserDoesNotMeetRequirementsForCoinBalance() {
+    UserProgressDTO userProgressDTO = new UserProgressDTO(
+        1L,
+        5000,
+        1,
+        "nickname_1",
+        Country.UNITED_STATES
+    );
+
+    ReflectionTestUtils.setField(userProgressService, "minimumLevel", 1);
+    ReflectionTestUtils.setField(userProgressService, "minimumCoinBalance", 6000);
 
     assertThrows(
         UserNotReadyForNewTournamentException.class,
