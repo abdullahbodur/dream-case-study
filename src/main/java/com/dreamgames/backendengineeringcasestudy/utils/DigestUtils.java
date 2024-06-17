@@ -13,5 +13,4 @@ public class DigestUtils {
         .hashString(data, StandardCharsets.UTF_8)
         .toString();
   }
-
 }
