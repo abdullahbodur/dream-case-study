@@ -4,7 +4,7 @@
 
 ![Branches](.github/badges/branches.svg)
 
-![Build](https://github.com/abdullahbodur/dream-case-study/actions/workflows/build.yml/badge.svg)
+![Build](https://github.com/abdullahbodur/dream-case-study/actions/workflows/build.yaml/badge.svg)
 
 Add brief explanation of how you organized your implementation and the choices you made in terms of
 design while solving problems
