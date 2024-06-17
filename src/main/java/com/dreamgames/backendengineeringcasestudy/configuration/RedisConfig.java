@@ -1,9 +1,9 @@
 package com.dreamgames.backendengineeringcasestudy.configuration;
 
-import com.dreamgames.backendengineeringcasestudy.dto.response.CountryLeaderboardDTO;
-import com.dreamgames.backendengineeringcasestudy.dto.response.GroupLeaderboardUserDTO;
-import com.dreamgames.backendengineeringcasestudy.serializer.CountryLeaderboardDTOSerializer;
-import com.dreamgames.backendengineeringcasestudy.serializer.GroupLeaderboardUserDTOSerializer;
+import com.dreamgames.backendengineeringcasestudy.api.dto.response.CountryLeaderboardDTO;
+import com.dreamgames.backendengineeringcasestudy.api.dto.response.GroupLeaderboardUserDTO;
+import com.dreamgames.backendengineeringcasestudy.api.dto.response.serializer.CountryLeaderboardDTOSerializer;
+import com.dreamgames.backendengineeringcasestudy.api.dto.response.serializer.GroupLeaderboardUserDTOSerializer;
 import java.util.List;
 import java.util.Stack;
 import org.springframework.context.annotation.Bean;
