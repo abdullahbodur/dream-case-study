@@ -18,6 +18,17 @@ related features
 
 #### Updated Level Details with Redis.
 
+### How to run the application
+To run the application, you need to have docker and docker-compose installed on your machine.
+You can Install them via the following links:
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+After installing docker and docker-compose, you can run the following command to start the application
+```shell
+cd deployment && docker-compose up -d
+```
+
 ### Diagrams
 
 #### Docker Compose Diagram
