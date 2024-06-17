@@ -18,6 +18,38 @@ related features
 
 #### Updated Level Details with Redis.
 
+```mermaid
+C4Deployment
+title System Context diagram for Docker Compose
+Enterprise_Boundary(b0, "local-network") {
+
+    Deployment_Node(redis, "Redis"){
+        Container(redis, "Redis", "In Memory Database", "Provides in-memory database for tournament and user progress data")
+    }
+    
+    Deployment_Node(mysqldb, "MySQL"){
+        Container(mysqldb, "MySQL", "Relational Database", "Provides relational database for user and tournament data")
+    }
+    
+    Deployment_Node(phpmyadmin, "PhpMyAdmin"){
+        Container(phpmyadmin, "PhpMyAdmin", "UI for Database", "Provides web interface for managing MySQL database")
+    }
+    
+    Deployment_Node(redisinsight, "RedisInsight"){
+        Container(redisinsight, "RedisInsight", "UI for Redis", "Provides web interface for managing and monitoring Redis")
+    }
+    
+    Deployment_Node(app, "Spring Boot"){
+        Container(app, "Spring Boot", "Java Application", "Provides backend services for the application")
+    }
+    
+    Rel(app, mysqldb, "Connects to")
+    Rel(phpmyadmin, mysqldb, "Manages")
+    Rel(app, redis, "Connects to")
+    Rel(redisinsight, redis, "Manages and monitors")
+}
+```
+
 ### TODO
 
 - [x] Create a simple spring boot application that creates table in the database
