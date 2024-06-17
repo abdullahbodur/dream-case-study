@@ -2,13 +2,13 @@ package com.dreamgames.backendengineeringcasestudy.user.service;
 
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.UserProgressMapper;
-import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
+import com.dreamgames.backendengineeringcasestudy.common.utils.EnumRandomPicker;
+import com.dreamgames.backendengineeringcasestudy.common.utils.NicknameGenerator;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.exceptions.UserNotReadyForNewTournamentException;
+import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
 import com.dreamgames.backendengineeringcasestudy.user.repository.UserProgressRepository;
-import com.dreamgames.backendengineeringcasestudy.common.utils.EnumRandomPicker;
-import com.dreamgames.backendengineeringcasestudy.common.utils.NicknameGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

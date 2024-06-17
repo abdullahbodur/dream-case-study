@@ -1,25 +1,28 @@
 package com.dreamgames.backendengineeringcasestudy.tournament.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.argThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.TournamentDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.TournamentDTOMapper;
-import com.dreamgames.backendengineeringcasestudy.tournament.entity.Tournament;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
+import com.dreamgames.backendengineeringcasestudy.tournament.entity.Tournament;
 import com.dreamgames.backendengineeringcasestudy.tournament.repository.TournamentRepository;
+import java.time.ZonedDateTime;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.time.ZonedDateTime;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 class TournamentServiceTest {
 

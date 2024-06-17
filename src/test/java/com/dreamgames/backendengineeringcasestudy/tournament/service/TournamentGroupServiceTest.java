@@ -13,14 +13,14 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.response.TournamentDTO
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.TournamentGroupDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.GroupDTOMapper;
-import com.dreamgames.backendengineeringcasestudy.tournament.entity.Tournament;
-import com.dreamgames.backendengineeringcasestudy.tournament.entity.TournamentGroup;
-import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.exceptions.TournamentNotStartedException;
 import com.dreamgames.backendengineeringcasestudy.exceptions.UserNotReadyForNewTournamentException;
+import com.dreamgames.backendengineeringcasestudy.tournament.entity.Tournament;
+import com.dreamgames.backendengineeringcasestudy.tournament.entity.TournamentGroup;
 import com.dreamgames.backendengineeringcasestudy.tournament.repository.GroupRepository;
+import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
 import java.time.ZonedDateTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

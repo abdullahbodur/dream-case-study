@@ -1,5 +1,18 @@
 package com.dreamgames.backendengineeringcasestudy.tournament.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.CountryLeaderboardDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.GroupLeaderboardDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.GroupLeaderboardUserDTO;
@@ -10,6 +23,7 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressD
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,24 +33,9 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.redis.core.RedisTemplate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 class TournamentLeaderboardServiceTest {

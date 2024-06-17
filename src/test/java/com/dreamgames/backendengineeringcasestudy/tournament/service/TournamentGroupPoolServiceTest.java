@@ -1,7 +1,6 @@
 package com.dreamgames.backendengineeringcasestudy.tournament.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -10,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentGroupPoolService;
 import java.util.List;
 import java.util.Stack;
 import java.util.Vector;

@@ -1,13 +1,12 @@
 package com.dreamgames.backendengineeringcasestudy.api.dto.response.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserDTO;
-import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.UserDTOMapper;
 import com.dreamgames.backendengineeringcasestudy.user.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserDTOMapperTest {
 

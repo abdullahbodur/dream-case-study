@@ -21,12 +21,12 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressD
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.exceptions.UserNotReadyForNewTournamentException;
+import com.dreamgames.backendengineeringcasestudy.testutils.JsonReader;
 import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentGroupService;
 import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentLeaderboardService;
 import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentRewardService;
 import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentScheduleService;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
-import com.dreamgames.backendengineeringcasestudy.testutils.JsonReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Collections;

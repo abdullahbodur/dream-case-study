@@ -1,16 +1,14 @@
 package com.dreamgames.backendengineeringcasestudy.common.utils;
 
-import com.dreamgames.backendengineeringcasestudy.common.utils.EnumRandomPicker;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EnumRandomPickerTest {
 

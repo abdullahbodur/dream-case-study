@@ -117,7 +117,7 @@ sequenceDiagram
 - [ ] Add custom exception handling
     - [X] Add custom exception handling for the application
     - [ ] Refactor error responses for the application
-- [ ] Create more complex structure for the application
+- [X] Create more complex structure for the application
 - [X] Write unit tests for the functions in `src/` directory
 - [ ] Write github workflow to run the tests
     - [X] Add mvn unit tests to the github workflow

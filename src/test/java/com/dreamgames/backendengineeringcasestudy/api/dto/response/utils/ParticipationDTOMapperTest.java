@@ -1,15 +1,14 @@
 package com.dreamgames.backendengineeringcasestudy.api.dto.response.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.ParticipationDTO;
-import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.ParticipationDTOMapper;
 import com.dreamgames.backendengineeringcasestudy.tournament.entity.Participation;
 import com.dreamgames.backendengineeringcasestudy.tournament.entity.TournamentGroup;
 import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParticipationDTOMapperTest {
 

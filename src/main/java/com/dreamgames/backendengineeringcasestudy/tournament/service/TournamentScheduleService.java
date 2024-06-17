@@ -65,9 +65,6 @@ public class TournamentScheduleService {
     ZonedDateTime now = ZonedDateTime.now(ZoneId.of(timezone));
     ZonedDateTime start = findNextExecutionTime(tournamentStartCron);
     ZonedDateTime end = findNextExecutionTime(tournamentEndCron);
-    System.out.println("Tournament start time: " + start);
-    System.out.println("Tournament end time: " + end);
-    System.out.println("Current time: " + now);
     log.info("Tournament start time: {}", start);
     log.info("Tournament end time: {}", end);
     log.info("Current time: {}", now);

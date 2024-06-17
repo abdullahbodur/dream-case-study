@@ -1,8 +1,9 @@
 package com.dreamgames.backendengineeringcasestudy.exceptions;
 
-import java.util.List;
-
-public record RestMessage(String message,
-                          List<String> error) {
+public record RestMessage(
+    int status,
+    String message,
+    String path,
+    String error) {
 
 }

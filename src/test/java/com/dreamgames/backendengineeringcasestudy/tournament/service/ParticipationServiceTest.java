@@ -1,6 +1,6 @@
 package com.dreamgames.backendengineeringcasestudy.tournament.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.argThat;
@@ -11,10 +11,10 @@ import static org.mockito.Mockito.when;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.ParticipationDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.TournamentGroupDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.ParticipationDTOMapper;
-import com.dreamgames.backendengineeringcasestudy.tournament.entity.Participation;
-import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
+import com.dreamgames.backendengineeringcasestudy.tournament.entity.Participation;
 import com.dreamgames.backendengineeringcasestudy.tournament.repository.ParticipationRepository;
+import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

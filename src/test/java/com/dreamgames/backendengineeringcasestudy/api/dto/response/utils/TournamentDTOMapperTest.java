@@ -1,14 +1,13 @@
 package com.dreamgames.backendengineeringcasestudy.api.dto.response.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.TournamentDTO;
-import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.TournamentDTOMapper;
 import com.dreamgames.backendengineeringcasestudy.tournament.entity.Tournament;
 import java.time.ZonedDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TournamentDTOMapperTest {
 

@@ -1,6 +1,8 @@
 package com.dreamgames.backendengineeringcasestudy.tournament.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -14,9 +16,9 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.response.RewardDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.TournamentDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.RewardDTOMapper;
-import com.dreamgames.backendengineeringcasestudy.tournament.entity.Reward;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
+import com.dreamgames.backendengineeringcasestudy.tournament.entity.Reward;
 import com.dreamgames.backendengineeringcasestudy.tournament.repository.RewardRepository;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import java.time.ZonedDateTime;

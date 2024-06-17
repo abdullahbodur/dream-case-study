@@ -13,13 +13,13 @@ import static org.mockito.MockitoAnnotations.openMocks;
 
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.utils.UserProgressMapper;
-import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
+import com.dreamgames.backendengineeringcasestudy.common.utils.EnumRandomPicker;
+import com.dreamgames.backendengineeringcasestudy.common.utils.NicknameGenerator;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.exceptions.UserNotReadyForNewTournamentException;
+import com.dreamgames.backendengineeringcasestudy.user.entity.UserProgress;
 import com.dreamgames.backendengineeringcasestudy.user.repository.UserProgressRepository;
-import com.dreamgames.backendengineeringcasestudy.common.utils.EnumRandomPicker;
-import com.dreamgames.backendengineeringcasestudy.common.utils.NicknameGenerator;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
