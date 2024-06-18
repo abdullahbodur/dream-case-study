@@ -207,8 +207,7 @@ You can find the postman collection [here](postman/dream_case_study.postman_coll
         - [X] Add plantuml diagrams for the project
         - [X] Add how to run the application
     - [X] Write javadoc for the functions in the project
-- [ ] Optimize the code for better performance
+- [X] Optimize the code for better performance
     - [X] Update Level Up request with redis that we can store updated live data without waiting too
       much time.
     - [X] Add live leaderboard with respect to given scorings. (Consider by Country and Group)
-    - [ ] Add a queue for processing the requests
