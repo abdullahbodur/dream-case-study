@@ -49,7 +49,7 @@ jobs:
           path: target/site/jacoco
 
   docker-build:
-    name: Docker build
+    name: Docker build App
     runs-on: ubuntu-latest
     needs: build
     steps:
