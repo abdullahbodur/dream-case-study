@@ -52,6 +52,50 @@ cd deployment && docker-compose up -d
 ```
 
 ### Diagrams
+#### Project Organization Diagram
+
+```mermaid
+graph LR
+    Project[Dream Case Study]
+    PerformanceTesting[Application Performance Testing]
+    A[App]
+    B[api]
+    C[common]
+    D[configuration]
+    E[enumaration]
+    F[exceptions]
+    G[tournament]
+    H[user]
+    I[resources]
+    Project --> A
+    Project --> PerformanceTesting
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+    A --> F
+    A --> G
+    A --> H
+    A --> I
+    B --> BA[StatusController.java]
+    B --> BB[dto]
+    BB --> BBA[request]
+    BB --> BBB[response]
+    C --> CA[utils]
+    C --> CB[validation]
+    G --> GA[controller]
+    G --> GB[entity]
+    G --> GC[repository]
+    G --> GD[service]
+    H --> HA[controller]
+    H --> HB[entity]
+    H --> HC[repository]
+    H --> HD[service]
+    I --> IA[application-test.yml]
+    I --> IB[application.yml]
+    I --> IC[db]
+```
+    
 
 #### Docker Compose Diagram
 
