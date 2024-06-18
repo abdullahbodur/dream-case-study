@@ -74,6 +74,12 @@ jobs:
       - name: Run docker-compose
         working-directory: deployment/performance-test
         run: docker-compose up -d
+      - name: Wait for pod log `JMeter test completed` to appear
+        run: |
+          while [[ $(docker logs jmeter 2>&1 | grep -c "JMeter test completed") -eq 0 ]]; do
+              echo "Waiting for JMeter test to complete..."
+              sleep 5
+          done
       # Upload Artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

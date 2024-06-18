@@ -21,6 +21,7 @@ rm -rf /reports/jmeter/*
 # copy jmeter.log to /reports/jmeter/PerformanceTestPlan
 cp jmeter.log /reports/jmeter/PerformanceTestPlan
 
+echo "JMeter test completed"
 while true; do
   sleep 1
 done
