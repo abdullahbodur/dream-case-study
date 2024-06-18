@@ -6,10 +6,10 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.response.CountryLeader
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.GroupLeaderboardDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.GroupLeaderboardUserRankDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentGroupService;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentLeaderboardService;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentRewardService;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentScheduleService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.GroupService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.LeaderboardService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.RewardService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.ScheduleService;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TournamentController {
 
-  private final TournamentLeaderboardService leaderboardService;
-  private final TournamentGroupService groupService;
+  private final LeaderboardService leaderboardService;
+  private final GroupService groupService;
   private final UserProgressService progressService;
-  private final TournamentRewardService rewardService;
-  private final TournamentScheduleService scheduleService;
+  private final RewardService rewardService;
+  private final ScheduleService scheduleService;
 
   /**
    * Endpoint for getting the leaderboard of countries.

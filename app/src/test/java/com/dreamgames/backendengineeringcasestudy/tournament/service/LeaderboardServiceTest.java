@@ -38,16 +38,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(SpringExtension.class)
-class TournamentLeaderboardServiceTest {
+class LeaderboardServiceTest {
 
   @InjectMocks
-  private TournamentLeaderboardService tournamentLeaderboardService;
+  private LeaderboardService leaderboardService;
 
   @MockBean
   private RedisTemplate<String, List<CountryLeaderboardDTO>> countryLeaderboard;
 
   @MockBean
-  private TournamentRewardService tournamentRewardService;
+  private RewardService rewardService;
 
   @MockBean
   private UserProgressService userProgressService;
@@ -73,16 +73,16 @@ class TournamentLeaderboardServiceTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
-    ReflectionTestUtils.setField(tournamentLeaderboardService, "groupLeaderboardPool",
+    ReflectionTestUtils.setField(leaderboardService, "groupLeaderboardPool",
         groupLeaderboardPool);
-    ReflectionTestUtils.setField(tournamentLeaderboardService, "userGroupPool", userGroupPool);
-    ReflectionTestUtils.setField(tournamentLeaderboardService, "countryLeaderboard",
+    ReflectionTestUtils.setField(leaderboardService, "userGroupPool", userGroupPool);
+    ReflectionTestUtils.setField(leaderboardService, "countryLeaderboard",
         countryLeaderboard);
-    ReflectionTestUtils.setField(tournamentLeaderboardService, "tournamentRewardService",
-        tournamentRewardService);
-    ReflectionTestUtils.setField(tournamentLeaderboardService, "userProgressService",
+    ReflectionTestUtils.setField(leaderboardService, "rewardService",
+        rewardService);
+    ReflectionTestUtils.setField(leaderboardService, "userProgressService",
         userProgressService);
-    ReflectionTestUtils.setField(tournamentLeaderboardService, "participationService",
+    ReflectionTestUtils.setField(leaderboardService, "participationService",
         participationService);
     when(countryLeaderboard.opsForValue()).thenReturn(countryLeaderboardOps);
     when(groupLeaderboardPool.opsForValue()).thenReturn(groupLeaderboardOps);
@@ -108,7 +108,7 @@ class TournamentLeaderboardServiceTest {
     when(userGroupOps.get(
         "userGroupPool:" + userProgressDTO.getId()
     )).thenReturn(null);
-    tournamentLeaderboardService.addUserToGroup(userProgressDTO, groupId);
+    leaderboardService.addUserToGroup(userProgressDTO, groupId);
     verify(groupLeaderboardOps, times(1)).set(
         eq("groupLeaderboardPool:group:" + groupId),
         argThat(arg -> arg.size() == 2 && arg.get(1).getUserId().equals(userProgressDTO.getId())
@@ -131,7 +131,7 @@ class TournamentLeaderboardServiceTest {
     when(userGroupOps.get(
         "userGroupPool:" + userProgressDTO.getId()
     )).thenReturn(null);
-    tournamentLeaderboardService.addUserToGroup(userProgressDTO, groupId);
+    leaderboardService.addUserToGroup(userProgressDTO, groupId);
     verify(groupLeaderboardOps, times(1)).set(
         eq("groupLeaderboardPool:group:" + groupId),
         argThat(arg -> arg.size() == 1 && arg.get(0).getUserId().equals(userProgressDTO.getId())
@@ -146,7 +146,7 @@ class TournamentLeaderboardServiceTest {
     // Mock the keys method to return a set of keys
     when(groupLeaderboardPool.keys(anyString())).thenReturn(Set.of("groupLeaderboardPool:group:1"));
     when(userGroupPool.keys(anyString())).thenReturn(Set.of("userGroupPool:1"));
-    tournamentLeaderboardService.cleanUpLeaderboards();
+    leaderboardService.cleanUpLeaderboards();
     verify(countryLeaderboardOps, times(1)).set(
         eq("countryLeaderboardPool"),
         argThat(arg -> arg.size() == 5 && arg.get(0).getTotalScore() == 0
@@ -173,7 +173,7 @@ class TournamentLeaderboardServiceTest {
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:" + groupId
     )).thenReturn(groupLeaderboardUserDTOList);
-    GroupLeaderboardDTO result = tournamentLeaderboardService.getGroupLeaderboard(groupId);
+    GroupLeaderboardDTO result = leaderboardService.getGroupLeaderboard(groupId);
     verify(groupLeaderboardOps, times(1)).get("groupLeaderboardPool:group:" + groupId);
     assertEquals(groupId, result.getGroupId());
     assertEquals(1, result.getLeaderboard().size());
@@ -193,7 +193,7 @@ class TournamentLeaderboardServiceTest {
         "groupLeaderboardPool:group:1"
     )).thenReturn(List.of(new GroupLeaderboardUserDTO(1L, "test", Country.UNITED_STATES, 100)
     ));
-    List<GroupLeaderboardDTO> result = tournamentLeaderboardService.getGroupLeaderboards();
+    List<GroupLeaderboardDTO> result = leaderboardService.getGroupLeaderboards();
     verify(groupLeaderboardPool, times(1)).keys("*");
     assertEquals(1, result.size());
     // order might be different
@@ -227,7 +227,7 @@ class TournamentLeaderboardServiceTest {
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:" + groupId
     )).thenReturn(groupLeaderboardUserDTOList);
-    GroupLeaderboardUserRankDTO result = tournamentLeaderboardService.getCurrentTournamentGroupUserRank(
+    GroupLeaderboardUserRankDTO result = leaderboardService.getCurrentTournamentGroupUserRank(
         groupId, userId);
     verify(groupLeaderboardOps, times(1)).get("groupLeaderboardPool:group:" + groupId);
     assertEquals(2, result.getRank());
@@ -260,7 +260,7 @@ class TournamentLeaderboardServiceTest {
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:" + groupId
     )).thenReturn(groupLeaderboardUserDTOList);
-    GroupLeaderboardUserRankDTO result = tournamentLeaderboardService.getCurrentTournamentGroupUserRank(
+    GroupLeaderboardUserRankDTO result = leaderboardService.getCurrentTournamentGroupUserRank(
         groupId, userId);
     verify(groupLeaderboardOps, times(1)).get("groupLeaderboardPool:group:" + groupId);
     assertNull(result);
@@ -274,7 +274,7 @@ class TournamentLeaderboardServiceTest {
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:" + groupId
     )).thenReturn(null);
-    GroupLeaderboardUserRankDTO result = tournamentLeaderboardService.getCurrentTournamentGroupUserRank(
+    GroupLeaderboardUserRankDTO result = leaderboardService.getCurrentTournamentGroupUserRank(
         groupId, userId);
     verify(groupLeaderboardOps, times(1)).get("groupLeaderboardPool:group:" + groupId);
     assertEquals(null, result);
@@ -306,7 +306,7 @@ class TournamentLeaderboardServiceTest {
     when(userGroupOps.get(
         "userGroupPool:" + userId
     )).thenReturn(1);
-    tournamentLeaderboardService.addScoreForGroupLeaderboard(userId, score);
+    leaderboardService.addScoreForGroupLeaderboard(userId, score);
     verify(groupLeaderboardOps, times(1)).set(
         eq("groupLeaderboardPool:group:" + userId),
         argThat(arg -> arg.size() == 2 && arg.get(0).getUserId().equals(userId)
@@ -331,7 +331,7 @@ class TournamentLeaderboardServiceTest {
         "groupLeaderboardPool:group:" + userId
     )).thenReturn(null);
     assertThrows(IllegalArgumentException.class, () -> {
-      tournamentLeaderboardService.addScoreForGroupLeaderboard(userId, score);
+      leaderboardService.addScoreForGroupLeaderboard(userId, score);
     });
   }
 
@@ -344,7 +344,7 @@ class TournamentLeaderboardServiceTest {
         "userGroupPool:" + userId
     )).thenReturn(null);
     assertThrows(IllegalArgumentException.class, () -> {
-      tournamentLeaderboardService.addScoreForGroupLeaderboard(userId, score);
+      leaderboardService.addScoreForGroupLeaderboard(userId, score);
     });
   }
 
@@ -367,7 +367,7 @@ class TournamentLeaderboardServiceTest {
     when(countryLeaderboardOps.get(
         "countryLeaderboardPool"
     )).thenReturn(countryLeaderboardDTOList);
-    tournamentLeaderboardService.addScoreForCountryLeaderboard(country, score);
+    leaderboardService.addScoreForCountryLeaderboard(country, score);
     verify(countryLeaderboardOps, times(1)).set(
         eq("countryLeaderboardPool"),
         argThat(arg -> arg.size() == 2 && arg.get(0).getCountry().equals(Country.UNITED_STATES)
@@ -396,12 +396,12 @@ class TournamentLeaderboardServiceTest {
         groupId,
         100
     );
-    when(tournamentRewardService.getReward(userId, tournamentId)).thenReturn(rewardDTO);
+    when(rewardService.getReward(userId, tournamentId)).thenReturn(rewardDTO);
     when(userProgressService.getUserProgress(userId)).thenReturn(
         new UserProgressDTO(99L, 10000, 10, "test99",
             Country.UNITED_STATES));
     when(participationService.getParticipation(userId, groupId)).thenReturn(participationDTO);
-    GroupLeaderboardUserRankDTO result = tournamentLeaderboardService.getHistoricalTournamentUserRank(
+    GroupLeaderboardUserRankDTO result = leaderboardService.getHistoricalTournamentUserRank(
         tournamentId, userId);
     assertEquals(2, result.getRank());
     assertEquals(99L, result.getUser().getUserId());
@@ -427,7 +427,7 @@ class TournamentLeaderboardServiceTest {
     when(countryLeaderboardOps.get(
         "countryLeaderboardPool"
     )).thenReturn(countryLeaderboardDTOList);
-    List<CountryLeaderboardDTO> result = tournamentLeaderboardService.getCountryLeaderboard();
+    List<CountryLeaderboardDTO> result = leaderboardService.getCountryLeaderboard();
     verify(countryLeaderboardOps, times(1)).get("countryLeaderboardPool");
     assertEquals(2, result.size());
     assertEquals(Country.UNITED_STATES, result.get(0).getCountry());
@@ -443,7 +443,7 @@ class TournamentLeaderboardServiceTest {
     when(userGroupOps.get(
         "userGroupPool:" + userId
     )).thenReturn(1);
-    Long result = tournamentLeaderboardService.getGroupIdForUser(userId);
+    Long result = leaderboardService.getGroupIdForUser(userId);
     assertEquals(1L, result);
   }
 
@@ -469,7 +469,7 @@ class TournamentLeaderboardServiceTest {
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:" + groupId
     )).thenReturn(groupLeaderboardUserDTOList);
-    boolean result = tournamentLeaderboardService.isUserGroupReady(groupId);
+    boolean result = leaderboardService.isUserGroupReady(groupId);
     assertEquals(false, result);
   }
 
@@ -525,7 +525,7 @@ class TournamentLeaderboardServiceTest {
     when(userGroupOps.get(
         "userGroupPool:" + 2L
     )).thenReturn(1);
-    boolean result = tournamentLeaderboardService.isUserGroupReady(groupId);
+    boolean result = leaderboardService.isUserGroupReady(groupId);
     assertTrue(result);
   }
 
@@ -537,7 +537,7 @@ class TournamentLeaderboardServiceTest {
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:" + groupId
     )).thenReturn(null);
-    boolean result = tournamentLeaderboardService.isUserGroupReady(groupId);
+    boolean result = leaderboardService.isUserGroupReady(groupId);
     assertFalse(result);
   }
 

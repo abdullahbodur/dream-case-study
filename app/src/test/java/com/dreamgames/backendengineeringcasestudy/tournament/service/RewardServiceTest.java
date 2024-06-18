@@ -34,10 +34,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
-class TournamentRewardServiceTest {
+class RewardServiceTest {
 
   @InjectMocks
-  private TournamentRewardService tournamentRewardService;
+  private RewardService rewardService;
 
   @Mock
   private RewardRepository rewardRepository;
@@ -49,8 +49,8 @@ class TournamentRewardServiceTest {
 
   @BeforeEach
   void setUp() {
-    ReflectionTestUtils.setField(tournamentRewardService, "firstPlaceRewardAmount", 100);
-    ReflectionTestUtils.setField(tournamentRewardService, "secondPlaceRewardAmount", 50);
+    ReflectionTestUtils.setField(rewardService, "firstPlaceRewardAmount", 100);
+    ReflectionTestUtils.setField(rewardService, "secondPlaceRewardAmount", 50);
   }
 
   @DisplayName("Assign rewards to users in tournament groups")
@@ -75,7 +75,7 @@ class TournamentRewardServiceTest {
             new GroupLeaderboardUserDTO(14L, "test4",
                 Country.FRANCE,
                 140))));
-    tournamentRewardService.assignRewards(tournamentDTO, groupLeaderboards);
+    rewardService.assignRewards(tournamentDTO, groupLeaderboards);
 
     verify(rewardRepository, times(2)).save(any(Reward.class));
   }
@@ -95,7 +95,7 @@ class TournamentRewardServiceTest {
     Long groupId = 1L;
     int rank = 1;
 
-    tournamentRewardService.initReward(groupLeaderboardUser, tournamentDTO, groupId, rank, 10000);
+    rewardService.initReward(groupLeaderboardUser, tournamentDTO, groupId, rank, 10000);
 
     verify(rewardRepository, times(1)).save(any(Reward.class));
   }
@@ -114,7 +114,7 @@ class TournamentRewardServiceTest {
     when(rewardRepository.findByTournamentIdAndUserId(anyLong(), anyLong())).thenReturn(
         Optional.of(reward));
     when(progressService.depositCoins(userId, 10000)).thenReturn(userProgressDTO);
-    UserProgressDTO result = tournamentRewardService.claimReward(userId, tournamentId);
+    UserProgressDTO result = rewardService.claimReward(userId, tournamentId);
     assertEquals(userProgressDTO, result);
     verify(rewardRepository, times(1)).save(reward);
   }
@@ -130,7 +130,7 @@ class TournamentRewardServiceTest {
         Optional.of(reward));
 
     assertThrows(EntityNotFoundException.class,
-        () -> tournamentRewardService.claimReward(userId, tournamentId));
+        () -> rewardService.claimReward(userId, tournamentId));
   }
 
   @DisplayName("Get reward for a user in a tournament")
@@ -145,7 +145,7 @@ class TournamentRewardServiceTest {
         Optional.of(reward));
     when(rewardDTOMapper.apply(any(Reward.class))).thenReturn(rewardDTO);
 
-    RewardDTO result = tournamentRewardService.getReward(userId, tournamentId);
+    RewardDTO result = rewardService.getReward(userId, tournamentId);
 
     assertEquals(rewardDTO, result);
   }
@@ -159,7 +159,7 @@ class TournamentRewardServiceTest {
         Optional.empty());
 
     assertThrows(EntityNotFoundException.class,
-        () -> tournamentRewardService.getReward(userId, tournamentId));
+        () -> rewardService.getReward(userId, tournamentId));
   }
 
   @DisplayName("Find unclaimed reward for a user")
@@ -173,7 +173,7 @@ class TournamentRewardServiceTest {
     when(rewardRepository.findAllByUserIdAndClaimed(anyLong(), anyBoolean())).thenReturn(
         Optional.of(reward));
     when(rewardDTOMapper.apply(any(Reward.class))).thenReturn(rewardDTO);
-    RewardDTO result = tournamentRewardService.findUnclaimedReward(userId);
+    RewardDTO result = rewardService.findUnclaimedReward(userId);
     assertEquals(rewardDTO, result);
   }
 
@@ -184,7 +184,7 @@ class TournamentRewardServiceTest {
     when(rewardRepository.findAllByUserIdAndClaimed(anyLong(), anyBoolean())).thenReturn(
         Optional.empty());
 
-    RewardDTO result = tournamentRewardService.findUnclaimedReward(userId);
+    RewardDTO result = rewardService.findUnclaimedReward(userId);
 
     assertNull(result);
   }

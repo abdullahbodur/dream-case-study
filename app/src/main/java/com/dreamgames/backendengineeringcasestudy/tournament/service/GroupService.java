@@ -25,14 +25,14 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class TournamentGroupService {
+public class GroupService {
 
-  private final TournamentGroupPoolService groupPoolService;
+  private final GroupPoolService groupPoolService;
   private final GroupRepository groupRepository;
   private final GroupDTOMapper groupDTOMapper;
   private final ParticipationService participationService;
-  private final TournamentRewardService rewardService;
-  private final TournamentLeaderboardService leaderboardService;
+  private final RewardService rewardService;
+  private final LeaderboardService leaderboardService;
 
   /**
    * Allows a user to enter a tournament.

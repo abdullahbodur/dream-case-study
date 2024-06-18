@@ -25,11 +25,11 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class TournamentLeaderboardService {
+public class LeaderboardService {
 
   private final RedisTemplate<String, List<CountryLeaderboardDTO>> countryLeaderboard;
 
-  private final TournamentRewardService tournamentRewardService;
+  private final RewardService rewardService;
 
   private final UserProgressService userProgressService;
 
@@ -179,7 +179,7 @@ public class TournamentLeaderboardService {
    */
   public GroupLeaderboardUserRankDTO getHistoricalTournamentUserRank(Long tournamentId,
       Long userId) {
-    RewardDTO reward = tournamentRewardService.getReward(userId, tournamentId);
+    RewardDTO reward = rewardService.getReward(userId, tournamentId);
     UserProgressDTO progressDTO = userProgressService.getUserProgress(userId);
     ParticipationDTO participationDTO = participationService.getParticipation(userId, reward.getGroupId());
     return new GroupLeaderboardUserRankDTO(

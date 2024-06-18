@@ -27,15 +27,15 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class TournamentScheduleService {
+public class ScheduleService {
 
   private final TournamentService tournamentService;
 
-  private final TournamentRewardService tournamentRewardService;
+  private final RewardService rewardService;
 
-  private final TournamentLeaderboardService leaderboardService;
+  private final LeaderboardService leaderboardService;
 
-  private final TournamentGroupPoolService groupPoolService;
+  private final GroupPoolService groupPoolService;
   private final CronParser parser = new CronParser(
       CronDefinitionBuilder.instanceDefinitionFor(QUARTZ));
 
@@ -187,7 +187,7 @@ public class TournamentScheduleService {
     }
     tournamentService.completeTournament(currentTournament.getId());
     isTournamentActive = false;
-    tournamentRewardService
+    rewardService
         .assignRewards(currentTournament, leaderboardService.getGroupLeaderboards());
     leaderboardService.cleanUpLeaderboards();
     groupPoolService.cleanupGroupPool();

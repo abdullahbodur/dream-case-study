@@ -1,6 +1,6 @@
 package com.dreamgames.backendengineeringcasestudy;
 
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentScheduleService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.ScheduleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -11,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 class BackendEngineeringCaseStudyApplicationTests {
 
   @MockBean
-  private TournamentScheduleService tournamentScheduleService;
+  private ScheduleService scheduleService;
 
   @Test
   void contextLoads() {

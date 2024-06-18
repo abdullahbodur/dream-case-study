@@ -13,8 +13,8 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.request.UpdateLevelReq
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentLeaderboardService;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentScheduleService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.LeaderboardService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.ScheduleService;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,10 +46,10 @@ public class UserProgressControllerTest {
   private UserService userService;
 
   @MockBean
-  private TournamentLeaderboardService leaderboardService;
+  private LeaderboardService leaderboardService;
 
   @MockBean
-  private TournamentScheduleService tournamentScheduleService;
+  private ScheduleService scheduleService;
 
 
   @Test

@@ -22,10 +22,10 @@ import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.exceptions.UserNotReadyForNewTournamentException;
 import com.dreamgames.backendengineeringcasestudy.testutils.JsonReader;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentGroupService;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentLeaderboardService;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentRewardService;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentScheduleService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.GroupService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.LeaderboardService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.RewardService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.ScheduleService;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
@@ -51,19 +51,19 @@ class TournamentControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private TournamentLeaderboardService leaderboardService;
+  private LeaderboardService leaderboardService;
 
   @MockBean
-  private TournamentGroupService groupService;
+  private GroupService groupService;
 
   @MockBean
   private UserProgressService progressService;
 
   @MockBean
-  private TournamentRewardService rewardService;
+  private RewardService rewardService;
 
   @MockBean
-  private TournamentScheduleService scheduleService;
+  private ScheduleService scheduleService;
 
   @Autowired
   private MockMvc mockMvc;

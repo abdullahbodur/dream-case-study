@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class TournamentRewardService {
+public class RewardService {
 
   private final RewardRepository rewardRepository;
   private final RewardDTOMapper rewardDTOMapper;

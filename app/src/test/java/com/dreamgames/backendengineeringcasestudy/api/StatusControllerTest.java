@@ -4,7 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentScheduleService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.ScheduleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +22,7 @@ public class StatusControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private TournamentScheduleService tournamentScheduleService;
+  private ScheduleService scheduleService;
 
   @Test
   public void testStatus() throws Exception {

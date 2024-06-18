@@ -24,10 +24,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(SpringExtension.class)
-class TournamentGroupPoolServiceTest {
+class GroupPoolServiceTest {
 
   @InjectMocks
-  private TournamentGroupPoolService tournamentGroupPoolService;
+  private GroupPoolService groupPoolService;
 
   @MockBean
   private RedisTemplate<String, Stack<Number>> groupPool;
@@ -37,14 +37,14 @@ class TournamentGroupPoolServiceTest {
 
   @BeforeEach
   void setUp() {
-    ReflectionTestUtils.setField(tournamentGroupPoolService, "groupPool", groupPool);
+    ReflectionTestUtils.setField(groupPoolService, "groupPool", groupPool);
     when(groupPool.opsForValue()).thenReturn(valueOperations);
   }
 
   @DisplayName("Cleanup group pool successfully")
   @Test
   public void cleanupGroupPoolSuccessfully() {
-    tournamentGroupPoolService.cleanupGroupPool();
+    groupPoolService.cleanupGroupPool();
     verify(groupPool, times(Country.values().length)).opsForValue();
     verify(valueOperations, times(1)).set(eq(Country.TURKEY.name()), argThat(
         Vector::isEmpty
@@ -69,7 +69,7 @@ class TournamentGroupPoolServiceTest {
     Stack<Number> groupStack = new Stack<>();
     groupStack.push(1);
     when(valueOperations.get(Country.TURKEY.name())).thenReturn(groupStack);
-    tournamentGroupPoolService.getAvailableGroup(Country.TURKEY);
+    groupPoolService.getAvailableGroup(Country.TURKEY);
     verify(groupPool, times(2)).opsForValue();
   }
 
@@ -78,7 +78,7 @@ class TournamentGroupPoolServiceTest {
   public void getAvailableGroupWhenNoGroupIsAvailable() {
     Stack<Number> groupStack = new Stack<>();
     when(valueOperations.get(anyString())).thenReturn(groupStack);
-    tournamentGroupPoolService.getAvailableGroup(Country.GERMANY);
+    groupPoolService.getAvailableGroup(Country.GERMANY);
     verify(groupPool, times(1)).opsForValue();
   }
 
@@ -86,7 +86,7 @@ class TournamentGroupPoolServiceTest {
   @Test
   public void getAvailableGroupWhenGroupStackIsNull() {
     when(valueOperations.get(anyString())).thenReturn(null);
-    tournamentGroupPoolService.getAvailableGroup(Country.GERMANY);
+    groupPoolService.getAvailableGroup(Country.GERMANY);
     verify(groupPool, times(1)).opsForValue();
   }
 
@@ -94,7 +94,7 @@ class TournamentGroupPoolServiceTest {
   @Test
   public void addGroupToPoolSuccessfully() {
     when(valueOperations.get(anyString())).thenReturn(null);
-    tournamentGroupPoolService.addGroupToPool(1L, List.of(Country.GERMANY));
+    groupPoolService.addGroupToPool(1L, List.of(Country.GERMANY));
     verify(valueOperations, times(1)).set(eq(Country.TURKEY.name()), argThat(
         stack -> stack.size() == 1 && stack.peek().equals(1L)
     ));
@@ -132,7 +132,7 @@ class TournamentGroupPoolServiceTest {
     when(valueOperations.get(Country.FRANCE.name())).thenReturn(groupStackFR);
     when(valueOperations.get(Country.UNITED_STATES.name())).thenReturn(null);
     when(valueOperations.get(Country.UNITED_KINGDOM.name())).thenReturn(null);
-    tournamentGroupPoolService.addGroupToPool(1L, List.of(Country.GERMANY));
+    groupPoolService.addGroupToPool(1L, List.of(Country.GERMANY));
     verify(valueOperations, times(1)).get(eq(Country.TURKEY.name()));
     verify(valueOperations, times(1)).get(eq(Country.FRANCE.name()));
     verify(valueOperations, times(1)).get(eq(Country.UNITED_STATES.name()));
@@ -154,7 +154,7 @@ class TournamentGroupPoolServiceTest {
   @DisplayName("Get remaining country slots successfully")
   @Test
   public void getRemainingCountrySlotsSuccessfully() {
-    List<Country> remainingCountrySlots = tournamentGroupPoolService.getRemainingCountrySlots(
+    List<Country> remainingCountrySlots = groupPoolService.getRemainingCountrySlots(
         List.of(Country.GERMANY));
     assertEquals(Country.values().length - 1, remainingCountrySlots.size());
   }

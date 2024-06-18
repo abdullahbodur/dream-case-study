@@ -65,6 +65,12 @@ jobs:
               echo "Waiting for JMeter test to complete..."
               sleep 5
           done
+      # echo statistics.json file to the console
+      - name: Show statistics.json
+        run: |
+          statistic_json_path="$(pwd)/deployment/performance-test/reports/PerformanceTestPlan/statistics.json"
+          markdown_content=$(python3 ./scripts/json_to_markdown.py $statistic_json_path)
+          echo "$markdown_content" >> $GITHUB_STEP_SUMMARY
       # Upload Artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

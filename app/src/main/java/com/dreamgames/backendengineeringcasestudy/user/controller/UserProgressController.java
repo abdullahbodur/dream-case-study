@@ -4,7 +4,7 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.request.CreateUserDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.request.UpdateLevelRequest;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
-import com.dreamgames.backendengineeringcasestudy.tournament.service.TournamentLeaderboardService;
+import com.dreamgames.backendengineeringcasestudy.tournament.service.LeaderboardService;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class UserProgressController {
 
   private final UserProgressService userProgressService;
   private final UserService userService;
-  private final TournamentLeaderboardService leaderboardService;
+  private final LeaderboardService leaderboardService;
 
   /**
    * method is used to create a new user and their progress. It first creates a user using the

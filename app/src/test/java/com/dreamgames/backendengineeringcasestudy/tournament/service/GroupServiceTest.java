@@ -30,13 +30,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-class TournamentGroupServiceTest {
+class GroupServiceTest {
 
   @InjectMocks
-  private TournamentGroupService tournamentGroupService;
+  private GroupService groupService;
 
   @Mock
-  private TournamentGroupPoolService groupPoolService;
+  private GroupPoolService groupPoolService;
 
   @Mock
   private GroupRepository groupRepository;
@@ -48,10 +48,10 @@ class TournamentGroupServiceTest {
   private ParticipationService participationService;
 
   @Mock
-  private TournamentRewardService rewardService;
+  private RewardService rewardService;
 
   @Mock
-  private TournamentLeaderboardService leaderboardService;
+  private LeaderboardService leaderboardService;
 
   @BeforeEach
   public void setUp() {
@@ -60,7 +60,7 @@ class TournamentGroupServiceTest {
 
   @AfterEach
   public void tearDown() {
-    tournamentGroupService = null;
+    groupService = null;
   }
 
   @DisplayName("User enters tournament successfully with creating new group")
@@ -90,7 +90,7 @@ class TournamentGroupServiceTest {
     when(groupRepository.save(any(TournamentGroup.class))).thenReturn(tournamentGroup);
     when(groupDTOMapper.apply(any(TournamentGroup.class))).thenReturn(tournamentGroupDTO);
 
-    tournamentGroupService.enterTournament(userProgressDTO, tournamentDTO);
+    groupService.enterTournament(userProgressDTO, tournamentDTO);
 
     verify(participationService, times(1)).createParticipation(any(UserProgress.class),
         any(TournamentGroupDTO.class));
@@ -120,7 +120,7 @@ class TournamentGroupServiceTest {
     when(groupPoolService.getAvailableGroup(userProgressDTO.getCountry())).thenReturn(1L);
     when(groupDTOMapper.apply(tournamentGroup)).thenReturn(tournamentGroupDTO);
 
-    tournamentGroupService.enterTournament(userProgressDTO, tournamentDTO);
+    groupService.enterTournament(userProgressDTO, tournamentDTO);
 
     verify(participationService, times(1)).createParticipation(any(UserProgress.class),
         any(TournamentGroupDTO.class));
@@ -150,7 +150,7 @@ class TournamentGroupServiceTest {
 
 
     assertThrows(EntityNotFoundException.class,
-        () -> tournamentGroupService.enterTournament(userProgressDTO, tournamentDTO));
+        () -> groupService.enterTournament(userProgressDTO, tournamentDTO));
   }
 
   @DisplayName("User fails to enter tournament due to unclaimed reward")
@@ -165,7 +165,7 @@ class TournamentGroupServiceTest {
     when(rewardService.findUnclaimedReward(userProgressDTO.getId())).thenReturn(unClaimedReward);
 
     assertThrows(UserNotReadyForNewTournamentException.class,
-        () -> tournamentGroupService.enterTournament(userProgressDTO, tournamentDTO));
+        () -> groupService.enterTournament(userProgressDTO, tournamentDTO));
   }
 
   @DisplayName("User fails to enter tournament due to already in a group")
@@ -181,7 +181,7 @@ class TournamentGroupServiceTest {
     when(leaderboardService.getGroupIdForUser(userProgressDTO.getId())).thenReturn(1L);
 
     assertThrows(UserNotReadyForNewTournamentException.class,
-        () -> tournamentGroupService.enterTournament(userProgressDTO, tournamentDTO));
+        () -> groupService.enterTournament(userProgressDTO, tournamentDTO));
   }
 
   @DisplayName("User fails to enter tournament due to tournament not active")
@@ -190,6 +190,6 @@ class TournamentGroupServiceTest {
     UserProgressDTO userProgressDTO = new UserProgressDTO(1L, 10000, 20, "nickname",
         Country.UNITED_STATES);
     assertThrows(TournamentNotStartedException.class,
-        () -> tournamentGroupService.enterTournament(userProgressDTO, null));
+        () -> groupService.enterTournament(userProgressDTO, null));
   }
 }
