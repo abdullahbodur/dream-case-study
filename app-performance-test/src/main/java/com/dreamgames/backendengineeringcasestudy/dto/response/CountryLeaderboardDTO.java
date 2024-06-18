@@ -1,4 +1,4 @@
-package com.dreamgames.backendengineeringcasestudy.api.dto.response;
+package com.dreamgames.backendengineeringcasestudy.dto.response;
 
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import lombok.AllArgsConstructor;

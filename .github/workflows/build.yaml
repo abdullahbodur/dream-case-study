@@ -72,10 +72,10 @@ jobs:
         uses: actions/checkout@v4
       # run docker-compose
       - name: Run docker-compose
-        working-directory: deployment
+        working-directory: deployment/performance-test
         run: docker-compose up -d
       # Upload Artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: deployment/reports
+          name: deployment/performance-test/reports

@@ -1,4 +1,4 @@
-package com.dreamgames.backendengineeringcasestudy.api.dto.response;
+package com.dreamgames.backendengineeringcasestudy.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

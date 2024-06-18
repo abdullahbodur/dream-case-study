@@ -6,14 +6,12 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Capacity Test">
-        <intProp name="ThreadGroup.num_threads">5</intProp>
-        <intProp name="ThreadGroup.ramp_time">5</intProp>
-        <longProp name="ThreadGroup.duration">5</longProp>
+        <intProp name="ThreadGroup.num_threads">20</intProp>
+        <intProp name="ThreadGroup.ramp_time">20</intProp>
+        <longProp name="ThreadGroup.duration">20/longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -22,20 +20,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <JavaSampler guiclass="JavaTestSamplerGui" testclass="JavaSampler" testname="Java Request">
-          <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="counter" elementType="Argument">
-                <stringProp name="Argument.name">counter</stringProp>
-                <stringProp name="Argument.value">${counter}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-            </collectionProp>
-          </elementProp>
-          <stringProp name="classname">com.dreamgames.backendengineeringcasestudy.PerformanceTest</stringProp>
-        </JavaSampler>
-        <hashTree/>
-        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter">
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
           <stringProp name="CounterConfig.start">1</stringProp>
           <stringProp name="CounterConfig.end"></stringProp>
           <stringProp name="CounterConfig.incr">1</stringProp>
@@ -44,7 +29,7 @@
           <boolProp name="CounterConfig.per_user">false</boolProp>
         </CounterConfig>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Performance Test View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Performance Test View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -80,6 +65,24 @@
           </objProp>
           <stringProp name="filename"></stringProp>
         </ResultCollector>
+        <hashTree/>
+        <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="Junit Performance Test">
+          <stringProp name="junitsampler.constructorstring">${__counter(FALSE,)}-5</stringProp>
+          <stringProp name="junitsampler.classname">com.dreamgames.backendengineeringcasestudy.PerformanceTest</stringProp>
+          <stringProp name="junitsampler.method">createUserTest</stringProp>
+          <stringProp name="junitsampler.success">Test successful</stringProp>
+          <stringProp name="junitsampler.success.code">200</stringProp>
+          <stringProp name="junitsampler.failure">Test failed</stringProp>
+          <stringProp name="junitsampler.failure.code">400</stringProp>
+          <stringProp name="junitsampler.error">An unexpected error occurred</stringProp>
+          <stringProp name="junitsampler.error.code">500</stringProp>
+          <stringProp name="junitsampler.exec.setup">false</stringProp>
+          <stringProp name="junitsampler.append.error">false</stringProp>
+          <stringProp name="junitsampler.append.exception">false</stringProp>
+          <boolProp name="junitsampler.junit4">true</boolProp>
+          <stringProp name="junitSampler.classname">com.dreamgames.backendengineeringcasestudy.PerformanceTest</stringProp>
+          <stringProp name="junitsampler.pkg.filter"></stringProp>
+        </JUnitSampler>
         <hashTree/>
       </hashTree>
     </hashTree>

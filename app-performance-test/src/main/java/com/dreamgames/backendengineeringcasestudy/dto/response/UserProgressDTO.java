@@ -1,9 +1,13 @@
-package com.dreamgames.backendengineeringcasestudy.api.dto.response;
+package com.dreamgames.backendengineeringcasestudy.dto.response;
 
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Data Transfer Object (DTO) class for user progress. It is used to send user progress
@@ -12,6 +16,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class UserProgressDTO {
 
   /**

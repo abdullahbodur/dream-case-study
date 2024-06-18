@@ -1,5 +1,5 @@
 version: '3.9'
-
+name: backend-engineering-case-study
 services:
 #  app:
 #    image: backend-engineering-case-study:1.0
@@ -28,15 +28,6 @@ services:
 #      SECOND_PLACE_REWARD: 5000
 #      TOURNAMENT_MIN_LEVEL: 20
 #      TOURNAMENT_MIN_COIN_BALANCE: 1000
-  jmeter:
-    build:
-      context: ..
-      dockerfile: deployment/jmeter.Dockerfile
-      args:
-        PROJECT_NAME: app-performance-test
-    container_name: jmeter
-    volumes:
-      - ./reports:/reports/jmeter:w
   mysqldb:
     image: mysql:8.0.28-oracle
     container_name: case-mysqldb
