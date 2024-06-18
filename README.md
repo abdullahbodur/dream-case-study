@@ -115,6 +115,10 @@ sequenceDiagram
     UserProgressService->>A: Points Withdrawn
     A->>U: Success
 ```
+
+### Postman Collection
+You can find the postman collection [here](postman/dream_case_study.postman_collection.json).
+
 ### TODO
 
 - [x] Create a simple spring boot application that creates table in the database
@@ -135,7 +139,7 @@ sequenceDiagram
           design while solving problems.
         - [X] Add plantuml diagrams for the project
         - [X] Add how to run the application
-    - [ ] Write javadoc for the functions in the project
+    - [X] Write javadoc for the functions in the project
 - [ ] Optimize the code for better performance
     - [X] Update Level Up request with redis that we can store updated live data without waiting too
       much time.

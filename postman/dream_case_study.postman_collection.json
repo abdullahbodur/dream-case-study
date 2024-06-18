@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "cfd22651-96b3-496d-b8cb-d03e8b5c07ad",
+		"name": "Dream Case Study",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12956923"
+	},
+	"item": [
+		{
+			"name": "User Progress",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"example+11@example.com\",\n    \"nickname\": \"exaa\",\n    \"password\": \"password123.\",\n    \"passwordConfirm\": \"password123.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/v1/userProgress",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"v1",
+								"userProgress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Level",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/v1/userProgress/updateLevel",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"v1",
+								"userProgress",
+								"updateLevel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WorldCup Tournament",
+			"item": [
+				{
+					"name": "Enter Tournament",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 11\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/v1/tournament/enterTournament",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"v1",
+								"tournament",
+								"enterTournament"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Country Leaderboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/v1/tournament/countryLeaderboard",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"v1",
+								"tournament",
+								"countryLeaderboard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Group Leaderbard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/v1/tournament/groupLeaderboard/1",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"v1",
+								"tournament",
+								"groupLeaderboard",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Rank of User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/v1/tournament/rank/9/1",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"v1",
+								"tournament",
+								"rank",
+								"9",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
