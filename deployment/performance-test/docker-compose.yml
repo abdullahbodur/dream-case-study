@@ -1,5 +1,4 @@
 version: '3.9'
-name: backend-engineering-case-study-performance-test
 services:
   app:
     image: backend-engineering-case-study:1.0

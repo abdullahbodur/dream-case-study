@@ -4,8 +4,8 @@
 ![Branches](.github/badges/branches.svg)
 ![Build](https://github.com/abdullahbodur/dream-case-study/actions/workflows/build.yaml/badge.svg)
 
-Add brief explanation of how you organized your implementation and the choices you made in terms of
-design while solving problems
+### Introduction
+This project is a simple backend application that is created for the Dream Case Study.
 
 ### Redis Methodology
 
