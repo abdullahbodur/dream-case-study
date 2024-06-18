@@ -41,7 +41,6 @@ public class UserProgressController {
       @RequestBody
       @Validated
       CreateUserDTO requestDTO) {
-    log.info("Creating user with nickname: {}", requestDTO.nickname());
     UserDTO userDTO = userService.createUser(requestDTO);
     return userProgressService.createUser(userDTO.getId(), requestDTO.nickname());
   }

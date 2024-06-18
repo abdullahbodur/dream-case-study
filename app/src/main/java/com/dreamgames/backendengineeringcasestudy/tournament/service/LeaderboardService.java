@@ -8,6 +8,7 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.response.Participation
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.RewardDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
+import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +44,21 @@ public class LeaderboardService {
    * Cleans up all leaderboards by deleting all keys in Redis.
    */
   public void cleanUpLeaderboards() {
+    initCountryLeaderboard();
+    groupLeaderboardPool.delete(Objects.requireNonNull(groupLeaderboardPool.keys("*")));
+    userGroupPool.delete(Objects.requireNonNull(userGroupPool.keys("*")));
+  }
+
+  /**
+   * Initializes the country leaderboard.
+   */
+  private List<CountryLeaderboardDTO> initCountryLeaderboard() {
     List<CountryLeaderboardDTO> countryLeaderboardDTOList = new ArrayList<>();
     for (Country country : Country.values()) {
       countryLeaderboardDTOList.add(new CountryLeaderboardDTO(country, 0));
     }
     countryLeaderboard.opsForValue().set("countryLeaderboardPool", countryLeaderboardDTOList);
-    groupLeaderboardPool.delete(Objects.requireNonNull(groupLeaderboardPool.keys("*")));
-    userGroupPool.delete(Objects.requireNonNull(userGroupPool.keys("*")));
+    return countryLeaderboardDTOList;
   }
 
   /**
@@ -64,15 +73,45 @@ public class LeaderboardService {
   }
 
   /**
+   * Gets the leaderboard for a specific group if it is ready.
+   *
+   * @param groupId the ID of the group
+   * @return the leaderboard for the group
+   */
+  public GroupLeaderboardDTO getReadyGroupLeaderboard(Long groupId) {
+    List<GroupLeaderboardUserDTO> groupLeaderboard = groupLeaderboardPool.opsForValue()
+        .get("groupLeaderboardPool:group:" + groupId);
+    if (groupLeaderboard == null) {
+      throw new EntityNotFoundException("Group leaderboard not found for group: " + groupId);
+    }
+    if (groupLeaderboard.size() == List.of(Country.values()).size()) {
+      return new GroupLeaderboardDTO(groupId, groupLeaderboard);
+    }
+    throw new EntityNotFoundException("Group is not ready yet");
+  }
+
+  /**
    * Gets all group leaderboards.
    *
    * @return a list of all group leaderboards
    */
-  public List<GroupLeaderboardDTO> getGroupLeaderboards() {
-    return Objects.requireNonNull(groupLeaderboardPool.keys("*")).stream()
+  public List<GroupLeaderboardDTO> getReadyGroupLeaderboards() {
+    return Objects.requireNonNull(groupLeaderboardPool.keys(
+            "groupLeaderboardPool:group:*")).stream()
         .map(key -> new GroupLeaderboardDTO(Long.parseLong(key.split(":")[2]),
             groupLeaderboardPool.opsForValue().get(key)))
+        .filter(groupLeaderboard -> isGroupReadyByLeaderboard(groupLeaderboard.getLeaderboard()))
         .toList();
+  }
+
+  /**
+   * Checks if a group is ready based on the leaderboard.
+   *
+   * @param groupLeaderboard the group leaderboard
+   * @return true if the group is ready, false otherwise
+   */
+  private boolean isGroupReadyByLeaderboard(List<GroupLeaderboardUserDTO> groupLeaderboard) {
+    return groupLeaderboard != null && groupLeaderboard.size() == List.of(Country.values()).size();
   }
 
   /**
@@ -134,6 +173,9 @@ public class LeaderboardService {
   public void addScoreForCountryLeaderboard(Country country, int score) {
     List<CountryLeaderboardDTO> countryLeaderBoard = countryLeaderboard.opsForValue()
         .get("countryLeaderboardPool");
+    if (countryLeaderBoard == null) {
+      countryLeaderBoard = initCountryLeaderboard();
+    }
     for (CountryLeaderboardDTO leaderboard : countryLeaderBoard) {
       if (leaderboard.getCountry().equals(country)) {
         leaderboard.setTotalScore(leaderboard.getTotalScore() + score);
@@ -181,7 +223,8 @@ public class LeaderboardService {
       Long userId) {
     RewardDTO reward = rewardService.getReward(userId, tournamentId);
     UserProgressDTO progressDTO = userProgressService.getUserProgress(userId);
-    ParticipationDTO participationDTO = participationService.getParticipation(userId, reward.getGroupId());
+    ParticipationDTO participationDTO = participationService.getParticipation(userId,
+        reward.getGroupId());
     return new GroupLeaderboardUserRankDTO(
         reward.getCurrentRank(),
         new GroupLeaderboardUserDTO(

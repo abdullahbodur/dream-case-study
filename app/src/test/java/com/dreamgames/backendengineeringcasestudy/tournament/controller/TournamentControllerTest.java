@@ -87,7 +87,7 @@ class TournamentControllerTest {
     when(leaderboardService.getGroupLeaderboard(1L)).thenReturn(groupLeaderboardDTO);
     mockMvc.perform(get("/api/v1/tournament/groupLeaderboard/1"))
         .andExpect(status().isOk());
-    verify(leaderboardService, times(1)).getGroupLeaderboard(1L);
+    verify(leaderboardService, times(1)).getReadyGroupLeaderboard(1L);
   }
 
   @Test

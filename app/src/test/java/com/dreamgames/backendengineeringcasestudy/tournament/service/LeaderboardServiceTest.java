@@ -21,6 +21,7 @@ import com.dreamgames.backendengineeringcasestudy.api.dto.response.Participation
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.RewardDTO;
 import com.dreamgames.backendengineeringcasestudy.api.dto.response.UserProgressDTO;
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
+import com.dreamgames.backendengineeringcasestudy.exceptions.EntityNotFoundException;
 import com.dreamgames.backendengineeringcasestudy.user.service.UserProgressService;
 import java.util.ArrayList;
 import java.util.List;
@@ -183,7 +184,7 @@ class LeaderboardServiceTest {
     assertEquals(100, result.getLeaderboard().get(0).getTournamentScore());
   }
 
-  @DisplayName("Get all group leaderboards successfully")
+  @DisplayName("Get all ready group leaderboards successfully")
   @Test
   public void getAllGroupLeaderboardsSuccessfully() {
     // Mock the keys method to return a set of keys
@@ -191,17 +192,141 @@ class LeaderboardServiceTest {
     ));
     when(groupLeaderboardOps.get(
         "groupLeaderboardPool:group:1"
-    )).thenReturn(List.of(new GroupLeaderboardUserDTO(1L, "test", Country.UNITED_STATES, 100)
+    )).thenReturn(List.of(
+        new GroupLeaderboardUserDTO(5L, "test5", Country.GERMANY, 140),
+        new GroupLeaderboardUserDTO(4L, "test4", Country.UNITED_KINGDOM, 130),
+        new GroupLeaderboardUserDTO(3L, "test3", Country.FRANCE, 120),
+        new GroupLeaderboardUserDTO(2L, "test2", Country.TURKEY, 110),
+        new GroupLeaderboardUserDTO(1L, "test", Country.UNITED_STATES, 100)
     ));
-    List<GroupLeaderboardDTO> result = leaderboardService.getGroupLeaderboards();
-    verify(groupLeaderboardPool, times(1)).keys("*");
+    List<GroupLeaderboardDTO> result = leaderboardService.getReadyGroupLeaderboards();
+    verify(groupLeaderboardPool, times(1)).keys("groupLeaderboardPool:group:*");
     assertEquals(1, result.size());
     // order might be different
     assertEquals(1L, result.get(0).getGroupId());
-    assertEquals(1, result.get(0).getLeaderboard().size());
-    assertEquals(1L, result.get(0).getLeaderboard().get(0).getUserId());
-    assertEquals("test", result.get(0).getLeaderboard().get(0).getNickname());
-    assertEquals(Country.UNITED_STATES, result.get(0).getLeaderboard().get(0).getCountry());
+    assertEquals(5, result.get(0).getLeaderboard().size());
+    assertEquals(5L, result.get(0).getLeaderboard().get(0).getUserId());
+    assertEquals("test5", result.get(0).getLeaderboard().get(0).getNickname());
+    assertEquals(140, result.get(0).getLeaderboard().get(0).getTournamentScore());
+    assertEquals(Country.GERMANY, result.get(0).getLeaderboard().get(0).getCountry());
+    assertEquals(4L, result.get(0).getLeaderboard().get(1).getUserId());
+    assertEquals("test4", result.get(0).getLeaderboard().get(1).getNickname());
+    assertEquals(130, result.get(0).getLeaderboard().get(1).getTournamentScore());
+    assertEquals(Country.UNITED_KINGDOM, result.get(0).getLeaderboard().get(1).getCountry());
+    assertEquals(3L, result.get(0).getLeaderboard().get(2).getUserId());
+    assertEquals("test3", result.get(0).getLeaderboard().get(2).getNickname());
+    assertEquals(120, result.get(0).getLeaderboard().get(2).getTournamentScore());
+    assertEquals(Country.FRANCE, result.get(0).getLeaderboard().get(2).getCountry());
+    assertEquals(2L, result.get(0).getLeaderboard().get(3).getUserId());
+    assertEquals("test2", result.get(0).getLeaderboard().get(3).getNickname());
+    assertEquals(110, result.get(0).getLeaderboard().get(3).getTournamentScore());
+    assertEquals(Country.TURKEY, result.get(0).getLeaderboard().get(3).getCountry());
+    assertEquals(1L, result.get(0).getLeaderboard().get(4).getUserId());
+    assertEquals("test", result.get(0).getLeaderboard().get(4).getNickname());
+    assertEquals(100, result.get(0).getLeaderboard().get(4).getTournamentScore());
+    assertEquals(Country.UNITED_STATES, result.get(0).getLeaderboard().get(4).getCountry());
+  }
+
+  @DisplayName("Get all ready group leaderboards with no ready groups")
+  @Test
+  public void getAllGroupLeaderboardsWithNoReadyGroups() {
+    // Mock the keys method to return a set of keys
+    when(groupLeaderboardPool.keys(anyString())).thenReturn(Set.of("groupLeaderboardPool:group:1"
+    ));
+    when(groupLeaderboardOps.get(
+        "groupLeaderboardPool:group:1"
+    )).thenReturn(List.of(
+        new GroupLeaderboardUserDTO(5L, "test5", Country.GERMANY, 0),
+        new GroupLeaderboardUserDTO(4L, "test4", Country.UNITED_KINGDOM, 0),
+        new GroupLeaderboardUserDTO(3L, "test3", Country.FRANCE, 0),
+        new GroupLeaderboardUserDTO(2L, "test2", Country.TURKEY, 0)
+    ));
+    List<GroupLeaderboardDTO> result = leaderboardService.getReadyGroupLeaderboards();
+    verify(groupLeaderboardPool, times(1)).keys("groupLeaderboardPool:group:*");
+    assertEquals(0, result.size());
+  }
+
+  @DisplayName("Get all ready group leaderboards with no groups")
+  @Test
+  public void getAllGroupLeaderboardsWithNoGroups() {
+    // Mock the keys method to return a set of keys
+    when(groupLeaderboardPool.keys(anyString())).thenReturn(Set.of());
+    List<GroupLeaderboardDTO> result = leaderboardService.getReadyGroupLeaderboards();
+    verify(groupLeaderboardPool, times(1)).keys("groupLeaderboardPool:group:*");
+    assertEquals(0, result.size());
+  }
+
+  @DisplayName("Get ready group leaderboard when group is not ready")
+  @Test
+  public void getReadyGroupLeaderboardSuccessfully() {
+    Long groupId = 1L;
+    List<GroupLeaderboardUserDTO> groupLeaderboardUserDTOList = new ArrayList<>();
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(
+            1L,
+            "test",
+            Country.UNITED_STATES,
+            100));
+    when(groupLeaderboardOps.get(
+        "groupLeaderboardPool:group:" + groupId
+    )).thenReturn(groupLeaderboardUserDTOList);
+
+    assertThrows(EntityNotFoundException.class, () -> {
+      leaderboardService.getReadyGroupLeaderboard(groupId);
+    });
+    verify(groupLeaderboardOps, times(1)).get("groupLeaderboardPool:group:" + groupId);
+  }
+
+
+  @DisplayName("Get ready group leaderboard when group is ready")
+  @Test
+  public void getReadyGroupLeaderboardWhenGroupIsReady() {
+    Long groupId = 1L;
+    List<GroupLeaderboardUserDTO> groupLeaderboardUserDTOList = new ArrayList<>();
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(5L, "test5", Country.GERMANY, 140)
+    );
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(4L, "test4", Country.UNITED_KINGDOM, 130)
+    );
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(3L, "test3", Country.FRANCE, 120)
+    );
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(2L, "test2", Country.TURKEY, 110)
+    );
+    groupLeaderboardUserDTOList.add(
+        new GroupLeaderboardUserDTO(1L, "test", Country.UNITED_STATES, 100)
+    );
+    when(groupLeaderboardOps.get(
+        "groupLeaderboardPool:group:" + groupId
+    )).thenReturn(groupLeaderboardUserDTOList);
+    when(userGroupOps.get(
+        "userGroupPool:" + 1L
+    )).thenReturn(1);
+    GroupLeaderboardDTO result = leaderboardService.getReadyGroupLeaderboard(groupId);
+    verify(groupLeaderboardOps, times(1)).get("groupLeaderboardPool:group:" + groupId);
+    assertEquals(groupId, result.getGroupId());
+    assertEquals(5, result.getLeaderboard().size());
+    assertEquals(5L, result.getLeaderboard().get(0).getUserId());
+    assertEquals("test5", result.getLeaderboard().get(0).getNickname());
+    assertEquals(Country.GERMANY, result.getLeaderboard().get(0).getCountry());
+    assertEquals(140, result.getLeaderboard().get(0).getTournamentScore());
+    assertEquals(4L, result.getLeaderboard().get(1).getUserId());
+    assertEquals("test4", result.getLeaderboard().get(1).getNickname());
+    assertEquals(Country.UNITED_KINGDOM, result.getLeaderboard().get(1).getCountry());
+    assertEquals(130, result.getLeaderboard().get(1).getTournamentScore());
+    assertEquals(3L, result.getLeaderboard().get(2).getUserId());
+    assertEquals("test3", result.getLeaderboard().get(2).getNickname());
+    assertEquals(Country.FRANCE, result.getLeaderboard().get(2).getCountry());
+    assertEquals(120, result.getLeaderboard().get(2).getTournamentScore());
+    assertEquals(2L, result.getLeaderboard().get(3).getUserId());
+    assertEquals("test2", result.getLeaderboard().get(3).getNickname());
+    assertEquals(Country.TURKEY, result.getLeaderboard().get(3).getCountry());
+    assertEquals(110, result.getLeaderboard().get(3).getTournamentScore());
+    assertEquals(1L, result.getLeaderboard().get(4).getUserId());
+    assertEquals("test", result.getLeaderboard().get(4).getNickname());
+    assertEquals(Country.UNITED_STATES, result.getLeaderboard().get(4).getCountry());
   }
 
   @DisplayName("Get current tournament group user rank successfully")

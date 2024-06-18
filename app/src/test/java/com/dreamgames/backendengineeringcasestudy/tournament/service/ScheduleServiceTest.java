@@ -96,7 +96,7 @@ class ScheduleServiceTest {
 
     List<GroupLeaderboardDTO> groupLeaderboardDTOList = List.of(
         new GroupLeaderboardDTO(1L, List.of()));
-    when(leaderboardService.getGroupLeaderboards()).thenReturn(groupLeaderboardDTOList);
+    when(leaderboardService.getReadyGroupLeaderboards()).thenReturn(groupLeaderboardDTOList);
     try (MockedStatic<ZonedDateTime> zonedDateTimeMockedStatic = mockStatic(ZonedDateTime.class)
     ) {
       zonedDateTimeMockedStatic.when(() -> ZonedDateTime.now(ZoneId.of("UTC")))
@@ -143,7 +143,7 @@ class ScheduleServiceTest {
     when(tournamentService.getActiveTournament()).thenReturn(tournamentDTO);
     List<GroupLeaderboardDTO> groupLeaderboardDTOList = List.of(
         new GroupLeaderboardDTO(1L, List.of()));
-    when(leaderboardService.getGroupLeaderboards()).thenReturn(groupLeaderboardDTOList);
+    when(leaderboardService.getReadyGroupLeaderboards()).thenReturn(groupLeaderboardDTOList);
     try (MockedStatic<ZonedDateTime> zonedDateTimeMockedStatic = mockStatic(ZonedDateTime.class)
     ) {
       zonedDateTimeMockedStatic.when(() -> ZonedDateTime.now(ZoneId.of("UTC")))

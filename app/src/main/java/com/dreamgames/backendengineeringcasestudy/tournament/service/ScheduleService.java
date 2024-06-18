@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@EnableScheduling
 public class ScheduleService {
 
   private final TournamentService tournamentService;
@@ -153,7 +155,7 @@ public class ScheduleService {
    * tournament, and creates a new tournament with the start and end times calculated based on the
    * cron expressions.
    */
-  @Scheduled(cron = "${business.tournament.schedule.start-cron}", zone = "${tournament.timezone}")
+  @Scheduled(cron = "${business.tournament.schedule.start-cron}", zone = "${business.tournament.timezone}")
   private void startTournament() {
     isTournamentActive = true;
     log.info("Tournament started");
@@ -169,8 +171,9 @@ public class ScheduleService {
    * end-cron property. It checks if a tournament is active, completes the active tournament,
    * assigns rewards, cleans up the leaderboards, and sets the isTournamentActive flag to false.
    */
-  @Scheduled(cron = "${business.tournament.schedule.end-cron}", zone = "${tournament.timezone}")
+  @Scheduled(cron = "${business.tournament.schedule.end-cron}", zone = "${business.tournament.timezone}")
   private void endTournament() {
+    log.info("Ending tournament");
     if (!isTournamentActive) {
       log.info("Tournament is not active");
       return;
@@ -187,11 +190,11 @@ public class ScheduleService {
     }
     tournamentService.completeTournament(currentTournament.getId());
     isTournamentActive = false;
-    rewardService
-        .assignRewards(currentTournament, leaderboardService.getGroupLeaderboards());
+    rewardService.assignRewards(currentTournament, leaderboardService.getReadyGroupLeaderboards());
     leaderboardService.cleanUpLeaderboards();
     groupPoolService.cleanupGroupPool();
     currentTournament = null;
     log.info("Tournament ended");
   }
+
 }

@@ -53,7 +53,7 @@ public class TournamentController {
    */
   @GetMapping("/groupLeaderboard/{groupId}")
   public GroupLeaderboardDTO getGroupLeaderboard(@PathVariable Long groupId) {
-    return leaderboardService.getGroupLeaderboard(groupId);
+    return leaderboardService.getReadyGroupLeaderboard(groupId);
   }
 
   /**
