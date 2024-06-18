@@ -189,7 +189,7 @@ You can find the postman collection [here](postman/dream_case_study.postman_coll
 ### TODO
 
 - [x] Create a simple spring boot application that creates table in the database
-- [ ] Add custom exception handling
+- [X] Add custom exception handling
     - [X] Add custom exception handling for the application
     - [X] Refactor error responses for the application
 - [X] Create more complex structure for the application
@@ -199,9 +199,9 @@ You can find the postman collection [here](postman/dream_case_study.postman_coll
     - [X] Add code coverage to the github workflow
     - [ ] Add performance tests to the github workflow
 - [ ] Optimize dockerfile for the application
-- [ ] Write documentation for the project
-    - [ ] Write README.md for the project
-        - [ ] Add brief explanation of how you organized your implementation and the choices you
+- [X] Write documentation for the project
+    - [X] Write README.md for the project
+        - [X] Add brief explanation of how you organized your implementation and the choices you
           made in terms of
           design while solving problems.
         - [X] Add plantuml diagrams for the project

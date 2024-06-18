@@ -1,12 +1,12 @@
 cd $JMETER_HOME/bin
 
-## wait until http://app:8080/status returns 200
+## wait until http://backend-engineering-case-study:8080/status returns 200
 while true; do
-  curl -s -o /dev/null -w "%{http_code}" http://app:8080/status
+  curl -s -o /dev/null -w "%{http_code}" http://backend-engineering-case-study:8080/status
   if [ $? -eq 0 ]; then
     break
   fi
-  echo "Waiting for http://app:8080/status to return 200"
+  echo "Waiting for http://backend-engineering-case-study:8080/status to return 200"
   sleep 1
 done
 

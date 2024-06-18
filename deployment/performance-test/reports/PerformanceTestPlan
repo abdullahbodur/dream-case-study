@@ -1,31 +1,31 @@
-2024-06-18 14:11:20,369 INFO o.a.j.u.JMeterUtils: Setting Locale to en_US
-2024-06-18 14:11:20,421 INFO o.a.j.JMeter: Loading user properties from: user.properties
-2024-06-18 14:11:20,422 INFO o.a.j.JMeter: Loading system properties from: system.properties
-2024-06-18 14:11:20,425 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
-2024-06-18 14:11:20,425 INFO o.a.j.JMeter: Version 5.6.3
-2024-06-18 14:11:20,425 INFO o.a.j.JMeter: java.version=17.0.11
-2024-06-18 14:11:20,425 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
-2024-06-18 14:11:20,425 INFO o.a.j.JMeter: os.name=Linux
-2024-06-18 14:11:20,425 INFO o.a.j.JMeter: os.arch=aarch64
-2024-06-18 14:11:20,425 INFO o.a.j.JMeter: os.version=6.6.22-linuxkit
-2024-06-18 14:11:20,426 INFO o.a.j.JMeter: file.encoding=UTF-8
-2024-06-18 14:11:20,426 INFO o.a.j.JMeter: java.awt.headless=true
-2024-06-18 14:11:20,426 INFO o.a.j.JMeter: Max memory     =2057306112
-2024-06-18 14:11:20,426 INFO o.a.j.JMeter: Available Processors =8
-2024-06-18 14:11:20,451 INFO o.a.j.JMeter: Default Locale=English (United States)
-2024-06-18 14:11:20,452 INFO o.a.j.JMeter: JMeter  Locale=English (United States)
-2024-06-18 14:11:20,452 INFO o.a.j.JMeter: JMeterHome=/apache-jmeter-5.6.3
-2024-06-18 14:11:20,452 INFO o.a.j.JMeter: user.dir  =/apache-jmeter-5.6.3/bin
-2024-06-18 14:11:20,452 INFO o.a.j.JMeter: PWD       =/apache-jmeter-5.6.3/bin
-2024-06-18 14:11:20,453 INFO o.a.j.JMeter: IP: 172.24.0.2 Name: aaa473a5ceb7 FullName: aaa473a5ceb7
-2024-06-18 14:11:20,481 INFO o.a.j.JMeter: Setting property 'jmeter.reportgenerator.outputdir' to:'/reports/jmeter/PerformanceTestPlan'
-2024-06-18 14:11:20,483 INFO o.a.j.s.FileServer: Default base='/apache-jmeter-5.6.3/bin'
-2024-06-18 14:11:20,484 INFO o.a.j.s.FileServer: Set new base='/apache-jmeter-5.6.3/plans/jmeter'
-2024-06-18 14:11:20,689 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
-2024-06-18 14:11:20,735 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
-2024-06-18 14:11:20,738 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
-2024-06-18 14:11:20,742 INFO o.a.j.s.SaveService: Loading file: /apache-jmeter-5.6.3/plans/jmeter/PerformanceTestPlan.jmx
-2024-06-18 14:11:20,773 ERROR o.a.j.JMeter: Error in NonGUIDriver
+2024-06-18 14:48:28,863 INFO o.a.j.u.JMeterUtils: Setting Locale to en_US
+2024-06-18 14:48:28,876 INFO o.a.j.JMeter: Loading user properties from: user.properties
+2024-06-18 14:48:28,877 INFO o.a.j.JMeter: Loading system properties from: system.properties
+2024-06-18 14:48:28,879 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2024-06-18 14:48:28,879 INFO o.a.j.JMeter: Version 5.6.3
+2024-06-18 14:48:28,879 INFO o.a.j.JMeter: java.version=17.0.11
+2024-06-18 14:48:28,879 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2024-06-18 14:48:28,880 INFO o.a.j.JMeter: os.name=Linux
+2024-06-18 14:48:28,880 INFO o.a.j.JMeter: os.arch=aarch64
+2024-06-18 14:48:28,880 INFO o.a.j.JMeter: os.version=6.6.22-linuxkit
+2024-06-18 14:48:28,880 INFO o.a.j.JMeter: file.encoding=UTF-8
+2024-06-18 14:48:28,880 INFO o.a.j.JMeter: java.awt.headless=true
+2024-06-18 14:48:28,880 INFO o.a.j.JMeter: Max memory     =2057306112
+2024-06-18 14:48:28,880 INFO o.a.j.JMeter: Available Processors =8
+2024-06-18 14:48:28,883 INFO o.a.j.JMeter: Default Locale=English (United States)
+2024-06-18 14:48:28,884 INFO o.a.j.JMeter: JMeter  Locale=English (United States)
+2024-06-18 14:48:28,884 INFO o.a.j.JMeter: JMeterHome=/apache-jmeter-5.6.3
+2024-06-18 14:48:28,884 INFO o.a.j.JMeter: user.dir  =/apache-jmeter-5.6.3/bin
+2024-06-18 14:48:28,884 INFO o.a.j.JMeter: PWD       =/apache-jmeter-5.6.3/bin
+2024-06-18 14:48:28,884 INFO o.a.j.JMeter: IP: 172.19.0.5 Name: 1f61c7293485 FullName: 1f61c7293485
+2024-06-18 14:48:28,889 INFO o.a.j.JMeter: Setting property 'jmeter.reportgenerator.outputdir' to:'/reports/jmeter/PerformanceTestPlan'
+2024-06-18 14:48:28,890 INFO o.a.j.s.FileServer: Default base='/apache-jmeter-5.6.3/bin'
+2024-06-18 14:48:28,890 INFO o.a.j.s.FileServer: Set new base='/apache-jmeter-5.6.3/plans/jmeter'
+2024-06-18 14:48:28,966 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2024-06-18 14:48:28,977 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2024-06-18 14:48:28,979 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2024-06-18 14:48:28,980 INFO o.a.j.s.SaveService: Loading file: /apache-jmeter-5.6.3/plans/jmeter/PerformanceTestPlan.jmx
+2024-06-18 14:48:28,997 ERROR o.a.j.JMeter: Error in NonGUIDriver
 java.lang.IllegalArgumentException: Problem loading XML from:'/apache-jmeter-5.6.3/plans/jmeter/PerformanceTestPlan.jmx'. 
 Cause:
 NumberFormatException: For input string: "20/longProp>
@@ -169,7 +169,7 @@ Caused by: java.lang.NumberFormatException: For input string: "20/longProp>
 	at com.thoughtworks.xstream.XStream.fromXML(XStream.java:1321) ~[xstream-1.4.20.jar:1.4.20]
 	at org.apache.jmeter.save.SaveService.readTree(SaveService.java:446) ~[ApacheJMeter_core.jar:5.6.3]
 	... 9 more
-2024-06-18 14:11:20,787 ERROR o.a.j.JMeter: An error occurred: 
+2024-06-18 14:48:29,002 ERROR o.a.j.JMeter: An error occurred: 
 org.apache.jmeter.report.config.ConfigurationException: Error in NonGUIDriver Problem loading XML from:'/apache-jmeter-5.6.3/plans/jmeter/PerformanceTestPlan.jmx'. 
 Cause:
 NumberFormatException: For input string: "20/longProp>

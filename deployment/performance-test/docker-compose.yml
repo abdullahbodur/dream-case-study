@@ -10,8 +10,9 @@ services:
       - '8080:8080'
     networks:
       - 'local-network'
+    restart: always
     environment:
-      JDBC_DATABASE_URL: jdbc:mysql://case-mysqldb:3306/mysql-db
+      JDBC_DATABASE_URL: jdbc:mysql://mysqldb:3306/mysql-db
       JDBC_DATABASE_USERNAME: user
       JDBC_DATABASE_PASSWORD: password
       REDIS_HOST: redis
@@ -34,6 +35,8 @@ services:
       args:
         PROJECT_NAME: app-performance-test
     container_name: jmeter
+    networks:
+      - 'local-network'
     volumes:
       - ./reports:/reports/jmeter
   mysqldb:
