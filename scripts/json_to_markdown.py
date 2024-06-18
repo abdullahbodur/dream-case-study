@@ -10,14 +10,13 @@ def json_to_markdown_table(file_path):
 
     headers = list(data.values())[0].keys()
     table = []
-    table.append(" | ".join(["Transaction"] + list(headers)))
-    table.append(" | ".join("---" for _ in headers))
+    table.append("| " + " | ".join(list(headers) + ["Transaction"]) + " |")
+    table.append("| " + " | ".join("---" for _ in list(headers) + ["Transaction"]) + " |")
 
     for key, row in data.items():
-        table.append(" | ".join([key] + [str(row[h]) for h in headers]))
+        table.append("| " + " | ".join([key] + [str(row[h]) for h in headers]) + " |")
 
     return "\n".join(table)
-
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
