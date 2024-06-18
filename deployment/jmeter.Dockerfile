@@ -1,10 +1,15 @@
+FROM maven:3.8.8-eclipse-temurin-17 AS Builder
+ARG PROJECT_NAME
+WORKDIR /project
+COPY .. .
+RUN mvn clean package --projects $PROJECT_NAME --also-make
+
 # Use an official OpenJDK runtime as a parent image
-FROM openjdk:8
+FROM eclipse-temurin:17
 
+ARG PROJECT_NAME
 # Set the JMeter version
-ENV JMETER_VERSION 5.4.1
-
-ARG JAR_PATH
+ENV JMETER_VERSION 5.6.3
 
 # Download and install JMeter
 RUN wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz && \
@@ -18,8 +23,12 @@ ENV JMETER_HOME /apache-jmeter-${JMETER_VERSION}/
 ENV PATH $JMETER_HOME/bin:$PATH
 
 # Copy your test plan to the Docker image
-COPY ../app-performance-test/src/test/jmeter/PerformanceTestPlan.jmx $JMETER_HOME
-COPY $JAR_PATH $JMETER_HOME/junit/
+COPY --from=Builder /project/$PROJECT_NAME/src/test $JMETER_HOME/plans/
+COPY --from=Builder /project/$PROJECT_NAME/target/*.jar $JMETER_HOME/lib/junit/
+COPY --from=Builder /project/$PROJECT_NAME/jmeter-run.sh $JMETER_HOME/jmeter-run.sh
 
-# Default command will run the test plan
-CMD ["jmeter", "-n", "-t", "/apache-jmeter-${JMETER_VERSION}/PerformanceTestPlan.jmx"]
+# Set the working directory
+WORKDIR $JMETER_HOME
+RUN chmod +x jmeter-run.sh
+# run jmeter-run.sh
+CMD ["/bin/bash", "-c", "./jmeter-run.sh"]

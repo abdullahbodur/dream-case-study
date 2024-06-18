@@ -6,13 +6,13 @@
   <parent>
     <groupId>com.dreamgames</groupId>
     <artifactId>backendengineeringcasestudy-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <relativePath>
       ../pom.xml
     </relativePath>
   </parent>
   <artifactId>app</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>Backend Engineering Case Study App</name>
   <description>Backend Engineering Case Study App</description>
   <properties>

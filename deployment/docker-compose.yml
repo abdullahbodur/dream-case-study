@@ -32,7 +32,11 @@ services:
     build:
       context: ..
       dockerfile: deployment/jmeter.Dockerfile
+      args:
+        PROJECT_NAME: app-performance-test
     container_name: jmeter
+    volumes:
+      - ./reports:/reports/jmeter:w
   mysqldb:
     image: mysql:8.0.28-oracle
     container_name: case-mysqldb
@@ -49,7 +53,6 @@ services:
     volumes:
       - case-mysql-data:/var/lib/case-mysqldb
       - ./mysql-db-dump.sql:/docker-entrypoint-initdb.d/mysql-db-dump.sql:ro
-
   phpmyadmin:
     image: phpmyadmin:5.2.0
     container_name: PhpMyAdmin
