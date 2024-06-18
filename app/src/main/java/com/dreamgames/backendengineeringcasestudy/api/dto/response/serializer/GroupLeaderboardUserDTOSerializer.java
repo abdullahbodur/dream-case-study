@@ -24,6 +24,10 @@ public class GroupLeaderboardUserDTOSerializer implements
     this.objectMapper = new ObjectMapper();
   }
 
+  public GroupLeaderboardUserDTOSerializer(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
+
   /**
    * This method serializes a List<GroupLeaderboardUserDTO> into a byte array.
    *

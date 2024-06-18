@@ -9,8 +9,9 @@ import org.hibernate.type.SerializationException;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
- * The CountryLeaderboardDTOSerializer class implements the RedisSerializer interface and provides methods to serialize and deserialize List<CountryLeaderboardDTO> objects.
- * It uses Jackson's ObjectMapper to convert between List<CountryLeaderboardDTO> and byte array.
+ * The CountryLeaderboardDTOSerializer class implements the RedisSerializer interface and provides
+ * methods to serialize and deserialize List<CountryLeaderboardDTO> objects. It uses Jackson's
+ * ObjectMapper to convert between List<CountryLeaderboardDTO> and byte array.
  */
 public class CountryLeaderboardDTOSerializer implements
     RedisSerializer<List<CountryLeaderboardDTO>> {
@@ -22,6 +23,15 @@ public class CountryLeaderboardDTOSerializer implements
    */
   public CountryLeaderboardDTOSerializer() {
     this.objectMapper = new ObjectMapper();
+  }
+
+  /**
+   * The constructor initializes the ObjectMapper.
+   *
+   * @param objectMapper The ObjectMapper to use for serialization and deserialization.
+   */
+  public CountryLeaderboardDTOSerializer(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
   }
 
   /**
