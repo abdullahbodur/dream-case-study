@@ -9,7 +9,6 @@ def json_to_markdown_table(file_path):
         return
 
     headers = list(data.values())[0].keys()
-    print(headers)
     table = []
     table.append("| " + " | ".join(list(headers)) + " |")
     table.append("| " + " | ".join("---" for _ in list(headers)) + " |")
