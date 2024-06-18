@@ -197,7 +197,7 @@ You can find the postman collection [here](postman/dream_case_study.postman_coll
 - [ ] Write github workflow to run the tests
     - [X] Add mvn unit tests to the github workflow
     - [X] Add code coverage to the github workflow
-    - [ ] Add performance tests to the github workflow
+    - [X] Add performance tests to the github workflow
 - [ ] Optimize dockerfile for the application
 - [X] Write documentation for the project
     - [X] Write README.md for the project
