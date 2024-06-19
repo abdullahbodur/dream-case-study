@@ -78,10 +78,10 @@ subprocess.run(['rm', '-rf', report_dir])
 for test_config in test_configurations:
     # wait until http://backend-engineering-case-study:8080/status returns 200
     while True:
+        print(f"Checking if service is up and running via {BASE_URL}/status")
         response = requests.get(f'{BASE_URL}/status')
         if response.status_code == 200:
             break
-        print("Waiting for http://backend-engineering-case-study:8080/status to return 200")
         time.sleep(1)
 
     print("Service is up and running")
