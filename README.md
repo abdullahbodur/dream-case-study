@@ -194,14 +194,14 @@ test workflow [here](.github/workflows/build.yaml).
 After each performance test workflow run, it generates simplified overviews of the performance tests
 as tables:
 
-## UpdateLevelUser
+#### UpdateLevelUser
 
 | transaction            | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime       | pct2ResTime        | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
 |------------------------|-------------|------------|----------|-------------------|---------------|------------|------------|-------------------|--------------------|-------------|-------------------|----------------------|------------------|
 | Update level of a user | 400         | 0          | 0.0      | 54.60500000000003 | 38.0          | 5.0        | 312.0      | 79.90000000000003 | 301.49999999999807 | 311.99      | 306.5134099616858 | 0.0                  | 0.0              |
 | Total                  | 400         | 0          | 0.0      | 54.60500000000003 | 38.0          | 5.0        | 312.0      | 79.90000000000003 | 301.49999999999807 | 311.99      | 306.5134099616858 | 0.0                  | 0.0              |
 
-## CreateNewUser
+#### CreateNewUser
 
 | transaction       | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime       | pct2ResTime       | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
 |-------------------|-------------|------------|----------|-------------------|---------------|------------|------------|-------------------|-------------------|-------------|-------------------|----------------------|------------------|

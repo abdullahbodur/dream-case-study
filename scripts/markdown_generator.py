@@ -31,7 +31,7 @@ def get_all_statistics():
     # for each file in folder
     for file in os.listdir(os.path.join(reports_path, folder)):
       if file.endswith('.json'):
-        print(f"## {folder}")
+        print(f"#### {folder}")
         print(json_to_markdown_table(os.path.join(reports_path, folder, file)))
 
 get_all_statistics()
