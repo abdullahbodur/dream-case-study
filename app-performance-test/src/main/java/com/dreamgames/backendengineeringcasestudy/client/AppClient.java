@@ -1,6 +1,7 @@
 package com.dreamgames.backendengineeringcasestudy.client;
 
 import com.dreamgames.backendengineeringcasestudy.dto.request.CreateUserDTO;
+import com.dreamgames.backendengineeringcasestudy.dto.request.EnterTournamentRequestDTO;
 import com.dreamgames.backendengineeringcasestudy.dto.request.UpdateLevelRequest;
 import com.dreamgames.backendengineeringcasestudy.dto.response.UserProgressDTO;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -49,7 +50,57 @@ public class AppClient {
         .PUT(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
         .build();
 
-    HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+    HttpResponse<String> response = httpClient.send(httpRequest,
+        HttpResponse.BodyHandlers.ofString());
+    log.info("Response: {}", response.body());
+    return objectMapper.readTree(response.body());
+  }
+
+  public JsonNode enterTournament(EnterTournamentRequestDTO requestDTO) throws Exception {
+    String requestBody = objectMapper.writeValueAsString(requestDTO);
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(baseURL + "/api/v1/tournament/enterTournament"))
+        .header("Content-Type", "application/json")
+        .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
+        .build();
+
+    HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    log.info("Response: {}", response.body());
+    return objectMapper.readTree(response.body());
+  }
+
+  public JsonNode getCountryLeaderboard() throws Exception {
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(baseURL + "/api/v1/tournament/countryLeaderboard"))
+        .header("Content-Type", "application/json")
+        .GET()
+        .build();
+
+    HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    log.info("Response: {}", response.body());
+    return objectMapper.readTree(response.body());
+  }
+
+  public JsonNode getGroupLeaderboard(Long groupId) throws Exception {
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(baseURL + "/api/v1/tournament/groupLeaderboard/" + groupId))
+        .header("Content-Type", "application/json")
+        .GET()
+        .build();
+
+    HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    log.info("Response: {}", response.body());
+    return objectMapper.readTree(response.body());
+  }
+
+  public JsonNode getRank(Long userId, Long tournamentId) throws Exception {
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(baseURL + "/api/v1/tournament/rank/" + userId + "/" + tournamentId))
+        .header("Content-Type", "application/json")
+        .GET()
+        .build();
+
+    HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     log.info("Response: {}", response.body());
     return objectMapper.readTree(response.body());
   }

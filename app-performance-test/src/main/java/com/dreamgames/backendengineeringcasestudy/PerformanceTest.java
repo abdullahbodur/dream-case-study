@@ -16,7 +16,6 @@ import org.junit.Test;
 public class PerformanceTest {
 
   private int threadId;
-  private int counter;
   private int index;
   private UUID uuid;
 
@@ -63,6 +62,23 @@ public class PerformanceTest {
       Assert.assertNotNull(progressDTO);
     } catch (Exception e) {
       log.error("Error creating user: {}", e);
+      Assert.fail();
+    }
+  }
+
+
+  @Test
+  public void updateLevelTest() throws Exception {
+    UpdateLevelRequest updateLevelRequest = new UpdateLevelRequest(
+        (long) this.index
+    );
+    log.info("Updating level: {}", updateLevelRequest);
+    try {
+      JsonNode progressDTO = appClient.updateLevel(updateLevelRequest);
+      log.info("Level updated: {}", progressDTO);
+      Assert.assertNotNull(progressDTO);
+    } catch (Exception e) {
+      log.error("Error updating level: {}", e);
       Assert.fail();
     }
   }

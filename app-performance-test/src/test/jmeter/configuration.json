@@ -1,0 +1,20 @@
+[
+  {
+    "testName": "CreateNewUser",
+    "testDescription": "Create a new user",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "createUserTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
+  },
+  {
+    "testName": "UpdateLevelUser",
+    "testDescription": "Update level of a user",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "updateLevelTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
+  }
+]

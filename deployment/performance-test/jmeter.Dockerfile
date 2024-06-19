@@ -22,13 +22,17 @@ ENV JMETER_HOME /apache-jmeter-${JMETER_VERSION}/
 # Add JMeter to the PATH
 ENV PATH $JMETER_HOME/bin:$PATH
 
-# Copy your test plan to the Docker image
-COPY --from=Builder /project/$PROJECT_NAME/src/test $JMETER_HOME/plans/
-COPY --from=Builder /project/$PROJECT_NAME/target/*.jar $JMETER_HOME/lib/junit/
-COPY --from=Builder /project/$PROJECT_NAME/jmeter-run.sh $JMETER_HOME/jmeter-run.sh
+# install python libraries
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip3 install requests
 
+WORKDIR /app
+COPY ../../.. .
+
+# Copy your test plan to the Docker image
+COPY --from=Builder /project/$PROJECT_NAME/target/*.jar $JMETER_HOME/lib/junit/
 # Set the working directory
-WORKDIR $JMETER_HOME
+WORKDIR /app/scripts
 RUN chmod +x jmeter-run.sh
 # run jmeter-run.sh
-CMD ["/bin/bash", "-c", "./jmeter-run.sh"]
+CMD ["/bin/bash", "-c", "python3 jmeter-run.py"]

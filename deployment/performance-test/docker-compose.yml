@@ -26,8 +26,8 @@ services:
       TOURNAMENT_END_CRON: '0 0 20 * * ?'
       FIRST_PLACE_REWARD: 10000
       SECOND_PLACE_REWARD: 5000
-      TOURNAMENT_MIN_LEVEL: 20
-      TOURNAMENT_MIN_COIN_BALANCE: 1000
+      TOURNAMENT_MIN_LEVEL: 1
+      TOURNAMENT_MIN_COIN_BALANCE: 4000
   jmeter:
     build:
       context: ../..
@@ -38,7 +38,12 @@ services:
     networks:
       - 'local-network'
     volumes:
-      - ./reports:/reports/jmeter
+      - ./reports:/app/deployment/performance-test/reports
+    environment:
+      DATABASE_URL: jdbc:mysql://mysqldb:3306/mysql-db
+      DATABASE_USERNAME: user
+      DATABASE_PASSWORD: password
+      BASE_URL: http://backend-engineering-case-study:8080
   mysqldb:
     image: mysql:8.0.28-oracle
     container_name: case-mysqldb

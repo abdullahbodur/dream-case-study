@@ -9,13 +9,13 @@
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Capacity Test">
-        <intProp name="ThreadGroup.num_threads">20</intProp>
-        <intProp name="ThreadGroup.ramp_time">20</intProp>
-        <longProp name="ThreadGroup.duration">20</longProp>
+        <stringProp name="ThreadGroup.num_threads">${THREADS}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${TEST_DURATION}</stringProp>
+        <stringProp name="ThreadGroup.duration">${TEST_DURATION}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
-          <stringProp name="LoopController.loops">5</stringProp>
+          <stringProp name="LoopController.loops">${LOOP_COUNT}</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
       </ThreadGroup>
@@ -29,7 +29,7 @@
           <boolProp name="CounterConfig.per_user">false</boolProp>
         </CounterConfig>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Performance Test View Results Tree">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Performance Test View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -66,10 +66,10 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="Junit Performance Test">
+        <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="${TEST_DESCRIPTION}" enabled="true">
           <stringProp name="junitsampler.constructorstring">${__counter(FALSE,)}-5</stringProp>
-          <stringProp name="junitsampler.classname">com.dreamgames.backendengineeringcasestudy.PerformanceTest</stringProp>
-          <stringProp name="junitsampler.method">createUserTest</stringProp>
+          <stringProp name="junitsampler.classname">${CLASS_NAME}</stringProp>
+          <stringProp name="junitsampler.method">${METHOD_NAME}</stringProp>
           <stringProp name="junitsampler.success">Test successful</stringProp>
           <stringProp name="junitsampler.success.code">200</stringProp>
           <stringProp name="junitsampler.failure">Test failed</stringProp>
@@ -85,6 +85,41 @@
         </JUnitSampler>
         <hashTree/>
       </hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="THREADS" elementType="Argument">
+            <stringProp name="Argument.name">THREADS</stringProp>
+            <stringProp name="Argument.value">${__P(THREADS,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="LOOP_COUNT" elementType="Argument">
+            <stringProp name="Argument.name">LOOP_COUNT</stringProp>
+            <stringProp name="Argument.value">${__P(LOOP_COUNT,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TEST_DURATION" elementType="Argument">
+            <stringProp name="Argument.name">TEST_DURATION</stringProp>
+            <stringProp name="Argument.value">${__P(TEST_DURATION,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CLASS_NAME" elementType="Argument">
+            <stringProp name="Argument.name">CLASS_NAME</stringProp>
+            <stringProp name="Argument.value">${__P(CLASS_NAME,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="METHOD_NAME" elementType="Argument">
+            <stringProp name="Argument.name">METHOD_NAME</stringProp>
+            <stringProp name="Argument.value">${__P(METHOD_NAME,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TEST_DESCRIPTION" elementType="Argument">
+            <stringProp name="Argument.name">TEST_DESCRIPTION</stringProp>
+            <stringProp name="Argument.value">${__P(TEST_DESCRIPTION,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>

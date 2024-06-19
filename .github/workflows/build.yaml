@@ -67,9 +67,9 @@ jobs:
           done
       # echo statistics.json file to the console
       - name: Show statistics.json
+        working-directory: scripts
         run: |
-          statistic_json_path="$(pwd)/deployment/performance-test/reports/PerformanceTestPlan/statistics.json"
-          markdown_content=$(python3 ./scripts/json_to_markdown.py $statistic_json_path)
+          markdown_content=$(python3 json_to_markdown.py)
           echo "$markdown_content" >> $GITHUB_STEP_SUMMARY
       # Upload Artifacts
       - name: Upload Artifacts
