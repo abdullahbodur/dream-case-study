@@ -23,7 +23,6 @@ else:
   os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
 
 current_dir=os.getcwd()
-
 plan_dir = os.path.join(current_dir, 'app-performance-test', 'src', 'test', 'jmeter')
 if args.report_dir is not None:
   report_dir = args.report_dir
@@ -60,6 +59,8 @@ if args.environment == 'local':
   os.environ['DATABASE_USER'] = DATABASE_USER
   os.environ['DATABASE_PASSWORD'] = DATABASE_PASSWORD
   os.environ['BASE_URL'] = BASE_URL
+else:
+  BASE_URL = os.getenv('BASE_URL')
 
 # Load test configurations from configuration.json
 with open(os.path.join(plan_dir, 'configuration.json')) as f:
@@ -77,7 +78,7 @@ subprocess.run(['rm', '-rf', report_dir])
 for test_config in test_configurations:
     # wait until http://backend-engineering-case-study:8080/status returns 200
     while True:
-        response = requests.get(f'http://{args.service_host}:8080/status')
+        response = requests.get(f'{BASE_URL}/status')
         if response.status_code == 200:
             break
         print("Waiting for http://backend-engineering-case-study:8080/status to return 200")
