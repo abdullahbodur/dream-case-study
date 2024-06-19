@@ -64,6 +64,8 @@ jobs:
           while [[ $(docker logs jmeter 2>&1 | grep -c "JMeter test completed successfully") -eq 0 ]]; do
               docker logs jmeter
               echo "==========================\n"
+              echo "service logs: \n"
+              docker logs backend-engineering-case-study
               echo "Waiting for JMeter test to complete..."
               sleep 5
           done
