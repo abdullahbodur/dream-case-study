@@ -199,12 +199,14 @@ as table:
 | Junit Performance Test | Junit Performance Test | 100        | 0        | 0.0         | 22.16         | 17.0       | 12.0       | 417.0       | 25.900000000000006 | 27.94999999999999 | 413.24999999999807 | 5.329354082285227    | 0.0              | 0.0         |
 | Total                  | Total                  | 100        | 0        | 0.0         | 22.16         | 17.0       | 12.0       | 417.0       | 25.900000000000006 | 27.94999999999999 | 413.24999999999807 | 5.329354082285227    | 0.0              | 0.0         |
 
-Also it generates a detailed report for the performance test. You can find the detailed report from the artifacts
+Also it generates a detailed report for the performance test. You can find the detailed report from
+the artifacts
 section of the workflow.
 
 <img src="docs/artifacts.png" alt="Artifacts" width="100%"/>
 
 #### Detailed Report
+
 <img src="docs/performance-test-detailed.png" alt="Detailed Report" width="100%"/>
 
 ### TODO
@@ -232,3 +234,19 @@ section of the workflow.
     - [X] Update Level Up request with redis that we can store updated live data without waiting too
       much time.
     - [X] Add live leaderboard with respect to given scorings. (Consider by Country and Group)
+
+#### Notes
+
+I did not focus on the security of the application. Because it was not mentioned in the case study.
+However, I also asked for the security requirements of the application via email. Yet, I did not get
+any response. So, I did not focus on the security of the application.
+
+What I can add for the security of the application:
+
+- [ ] Add SSO Service to the docker environment
+- [ ] Enable Spring Security for the application
+- [ ] Add Security Layers with Spring 3.0
+- [ ] Implement an JWT Decoder & User Details Service for the application
+- [ ] Cors Configuration for the application
+- [ ] Add CSRF Protection for the application
+- [ ] Add JWT Auth Converter for the application
