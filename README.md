@@ -191,13 +191,22 @@ You can find the postman collection [here](postman/dream_case_study.postman_coll
 
 On each commit, the application is tested with the performance tests. You can find the performance
 test workflow [here](.github/workflows/build.yaml).
-After each performance test workflow run, it generates a simplified overview of the performance test
-as table:
+After each performance test workflow run, it generates simplified overviews of the performance tests
+as tables:
 
-| transaction            | sampleCount            | errorCount | errorPct | meanResTime | medianResTime | minResTime | maxResTime | pct1ResTime | pct2ResTime        | pct3ResTime       | throughput         | receivedKBytesPerSec | sentKBytesPerSec | Transaction |
-|------------------------|------------------------|------------|----------|-------------|---------------|------------|------------|-------------|--------------------|-------------------|--------------------|----------------------|------------------|-------------|
-| Junit Performance Test | Junit Performance Test | 100        | 0        | 0.0         | 22.16         | 17.0       | 12.0       | 417.0       | 25.900000000000006 | 27.94999999999999 | 413.24999999999807 | 5.329354082285227    | 0.0              | 0.0         |
-| Total                  | Total                  | 100        | 0        | 0.0         | 22.16         | 17.0       | 12.0       | 417.0       | 25.900000000000006 | 27.94999999999999 | 413.24999999999807 | 5.329354082285227    | 0.0              | 0.0         |
+## UpdateLevelUser
+
+| transaction            | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime       | pct2ResTime        | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
+|------------------------|-------------|------------|----------|-------------------|---------------|------------|------------|-------------------|--------------------|-------------|-------------------|----------------------|------------------|
+| Update level of a user | 400         | 0          | 0.0      | 54.60500000000003 | 38.0          | 5.0        | 312.0      | 79.90000000000003 | 301.49999999999807 | 311.99      | 306.5134099616858 | 0.0                  | 0.0              |
+| Total                  | 400         | 0          | 0.0      | 54.60500000000003 | 38.0          | 5.0        | 312.0      | 79.90000000000003 | 301.49999999999807 | 311.99      | 306.5134099616858 | 0.0                  | 0.0              |
+
+## CreateNewUser
+
+| transaction       | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime       | pct2ResTime       | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
+|-------------------|-------------|------------|----------|-------------------|---------------|------------|------------|-------------------|-------------------|-------------|-------------------|----------------------|------------------|
+| Total             | 400         | 0          | 0.0      | 77.23250000000004 | 58.0          | 7.0        | 421.0      | 98.90000000000003 | 393.2499999999971 | 420.0       | 228.8329519450801 | 0.0                  | 0.0              |
+| Create a new user | 400         | 0          | 0.0      | 77.23250000000004 | 58.0          | 7.0        | 421.0      | 98.90000000000003 | 393.2499999999971 | 420.0       | 228.8329519450801 | 0.0                  | 0.0              |
 
 Also it generates a detailed report for the performance test. You can find the detailed report from
 the artifacts
