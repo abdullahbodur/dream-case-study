@@ -32,7 +32,7 @@ class GroupLeaderboardUserDTOSerializerTest {
   @DisplayName("Should serialize list of GroupLeaderboardUserDTOs")
   void shouldSerialize() {
     List<GroupLeaderboardUserDTO> dtos = Arrays.asList(new GroupLeaderboardUserDTO(
-        1L, "user1", Country.UNITED_STATES, 0),
+            1L, "user1", Country.UNITED_STATES, 0),
         new GroupLeaderboardUserDTO(2L, "user2", Country.GERMANY, 1));
 
     byte[] actualBytes = serializer.serialize(dtos);
@@ -64,7 +64,14 @@ class GroupLeaderboardUserDTOSerializerTest {
         new GroupLeaderboardUserDTO(1L, "user1", Country.UNITED_STATES, 0),
         new GroupLeaderboardUserDTO(2L, "user2", Country.GERMANY, 1));
 
-    assertEquals(expectedDtos, actualDtos);
+    assertEquals(expectedDtos.size(), actualDtos.size());
+    for (int i = 0; i < expectedDtos.size(); i++) {
+      assertEquals(expectedDtos.get(i).getUserId(), actualDtos.get(i).getUserId());
+      assertEquals(expectedDtos.get(i).getNickname(), actualDtos.get(i).getNickname());
+      assertEquals(expectedDtos.get(i).getCountry(), actualDtos.get(i).getCountry());
+      assertEquals(expectedDtos.get(i).getTournamentScore(),
+          actualDtos.get(i).getTournamentScore());
+    }
   }
 
   @Test

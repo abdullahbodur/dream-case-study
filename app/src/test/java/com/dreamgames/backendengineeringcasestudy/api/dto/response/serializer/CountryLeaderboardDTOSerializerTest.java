@@ -58,7 +58,14 @@ class CountryLeaderboardDTOSerializerTest {
     List<CountryLeaderboardDTO> expected = Arrays.asList(
         new CountryLeaderboardDTO(Country.UNITED_STATES, 0),
         new CountryLeaderboardDTO(Country.GERMANY, 1));
-    assertEquals(expected, serializer.deserialize(bytes));
+
+    List<CountryLeaderboardDTO> actual = serializer.deserialize(bytes);
+
+    assertEquals(expected.size(), actual.size());
+    for (int i = 0; i < expected.size(); i++) {
+      assertEquals(expected.get(i).getCountry(), actual.get(i).getCountry());
+      assertEquals(expected.get(i).getTotalScore(), actual.get(i).getTotalScore());
+    }
   }
 
   @Test
