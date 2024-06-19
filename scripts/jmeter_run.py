@@ -76,10 +76,13 @@ subprocess.run(['rm', '-rf', report_dir])
 for test_config in test_configurations:
     # wait until http://backend-engineering-case-study:8080/status returns 200
     while True:
-        print(f"Checking if service is up and running via {BASE_URL}/status")
-        response = requests.get(f'{BASE_URL}/status')
-        if response.status_code == 200:
-            break
+        try:
+            print(f"Checking if service is up and running via {BASE_URL}/status")
+            response = requests.get(f'{BASE_URL}/status')
+            if response.status_code == 200:
+                break
+        except Exception as e:
+          print(f"Service is not up yet. Error: {e}")
         time.sleep(1)
 
     print("Service is up and running")
@@ -117,8 +120,4 @@ if args.environment == 'local':
   os.environ.pop('DATABASE_PASSWORD')
   os.environ.pop('BASE_URL')
 
-print("JMeter test completed successfully")
-
-# run forever to keep the container running
-while True:
-  time.sleep(1)
+print("JMeter tests completed")

@@ -59,16 +59,11 @@ jobs:
       - name: Run docker-compose
         working-directory: deployment/performance-test
         run: docker-compose up -d
-      - name: Wait for pod log `JMeter test completed` to appear
-        timeout-minutes: 3
+      - name: Wait for the pod terminated
         run: |
-          while [[ $(docker logs jmeter 2>&1 | grep -c "JMeter test completed successfully") -eq 0 ]]; do
-              docker logs jmeter 2>&1
-              echo "==========================\n"
-              echo "service logs: \n"
-              docker logs backend-engineering-case-study 2>&1
-              echo "Waiting for JMeter test to complete..."
-              sleep 5
+          while [ "$(docker ps -q -f name=jmeter)" ]; do
+            echo "Jmeter is still running"          
+            sleep 5
           done
       # echo statistics.json file to the console
       - name: Show statistics.json
