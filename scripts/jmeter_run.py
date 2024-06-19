@@ -97,14 +97,14 @@ for test_config in test_configurations:
     subprocess.run([
         f'{JMETER_HOME}/bin/jmeter.sh', '-n',
         '-t', f'{current_dir}/app-performance-test/src/test/jmeter/PerformanceTestPlan.jmx',
-        f'-JCLASS_NAME={test_config['className']}',
-        f'-JMETHOD_NAME={test_config['methodName']}',
-        f'-JTHREADS={test_config['threadCount']}',
-        f'-JLOOP_COUNT={test_config['loopCount']}',
-        f'-JDURATION={test_config['duration']}',
-        f'-JTEST_DESCRIPTION={test_config["testDescription"]}',
-        '-l', f'{report_dir}/{test_config["testName"]}/{test_config["testName"]}.jtl',
-        '-e', '-o', f'{report_dir}/{test_config["testName"]}'
+        f"-JCLASS_NAME={test_config['className']}",
+        f"-JMETHOD_NAME={test_config['methodName']}",
+        f"-JTHREADS={test_config['threadCount']}",
+        f"-JLOOP_COUNT={test_config['loopCount']}",
+        f"-JDURATION={test_config['duration']}",
+        f"-JTEST_DESCRIPTION={test_config['testDescription']}",
+        '-l', f"{report_dir}/{test_config['testName']}/{test_config['testName']}.jtl",
+        '-e', '-o', f"{report_dir}/{test_config['testName']}"
     ])
 
     subprocess.run(['mv', f'{current_dir}/jmeter.log', f'{report_dir}/{test_config["testName"]}'])

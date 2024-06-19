@@ -34,4 +34,4 @@ COPY --from=Builder /project/$PROJECT_NAME/target/*.jar $JMETER_HOME/lib/junit/
 # Set the working directory
 WORKDIR /app/scripts
 # run jmeter-run.sh
-CMD ["/bin/bash", "-c", "python3 jmeter_run.py"]
+CMD ["/bin/bash", "-c", "python3 jmeter_run.py --environment pipeline"]
