@@ -501,6 +501,19 @@ class LeaderboardServiceTest {
             && arg.get(1).getTotalScore() == 110));
   }
 
+  @DisplayName("Add score for country in country leaderboard with null country leaderboard")
+  @Test
+  public void addScoreForCountryLeaderboardWithNullCountryLeaderboard() {
+    Country country = Country.UNITED_STATES;
+    int score = 100;
+    when(countryLeaderboardOps.get(
+        "countryLeaderboardPool"
+    )).thenReturn(null);
+    leaderboardService.addScoreForCountryLeaderboard(country, score);
+    verify(countryLeaderboardOps, times(2)).set(
+        eq("countryLeaderboardPool"), argThat(arg -> arg.size() == 5));
+  }
+
   @DisplayName("Get historical group leaderboard successfully")
   @Test
   public void getHistoricalGroupLeaderboardSuccessfully() {
