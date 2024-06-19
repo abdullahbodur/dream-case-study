@@ -118,7 +118,7 @@ if args.environment == 'local':
   os.environ.pop('DATABASE_PASSWORD')
   os.environ.pop('BASE_URL')
 
-print("All tests completed")
+print("JMeter test completed successfully")
 
 # run forever to keep the container running
 while True:

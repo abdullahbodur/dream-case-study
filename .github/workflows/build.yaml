@@ -61,7 +61,9 @@ jobs:
         run: docker-compose up -d
       - name: Wait for pod log `JMeter test completed` to appear
         run: |
-          while [[ $(docker logs jmeter 2>&1 | grep -c "JMeter test completed") -eq 0 ]]; do
+          while [[ $(docker logs jmeter 2>&1 | grep -c "JMeter test completed successfully") -eq 0 ]]; do
+              docker logs jmeter
+              echo "==========================\n"
               echo "Waiting for JMeter test to complete..."
               sleep 5
           done
