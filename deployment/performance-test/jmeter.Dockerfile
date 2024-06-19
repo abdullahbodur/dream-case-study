@@ -33,6 +33,5 @@ COPY ../../.. .
 COPY --from=Builder /project/$PROJECT_NAME/target/*.jar $JMETER_HOME/lib/junit/
 # Set the working directory
 WORKDIR /app/scripts
-RUN chmod +x jmeter-run.sh
 # run jmeter-run.sh
 CMD ["/bin/bash", "-c", "python3 jmeter-run.py"]
