@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"example+11@example.com\",\n    \"nickname\": \"exaa\",\n    \"password\": \"password123.\",\n    \"passwordConfirm\": \"password123.\"\n}",
+							"raw": "{\n    \"email\": \"example-{{$guid}}@example.com\",\n    \"nickname\": \"exaa\",\n    \"password\": \"password123.\",\n    \"passwordConfirm\": \"password123.\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,11 +24,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{BASE_API_URL}}/v1/userProgress",
+							"raw": "http://localhost:8080/api/v1/userProgress",
+							"protocol": "http",
 							"host": [
-								"{{BASE_API_URL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
 								"v1",
 								"userProgress"
 							]
@@ -43,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": 3\n}",
+							"raw": "{\n    \"userId\": 14\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -51,11 +54,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{BASE_API_URL}}/v1/userProgress/updateLevel",
+							"raw": "http://localhost:8080/api/v1/userProgress/updateLevel",
+							"protocol": "http",
 							"host": [
-								"{{BASE_API_URL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
 								"v1",
 								"userProgress",
 								"updateLevel"
@@ -76,7 +82,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": 11\n}",
+							"raw": "{\n    \"userId\": 14\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -84,11 +90,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{BASE_API_URL}}/v1/tournament/enterTournament",
+							"raw": "http://localhost:8080/api/v1/tournament/enterTournament",
+							"protocol": "http",
 							"host": [
-								"{{BASE_API_URL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
 								"v1",
 								"tournament",
 								"enterTournament"
@@ -103,11 +112,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_API_URL}}/v1/tournament/countryLeaderboard",
+							"raw": "http://localhost:8080/api/v1/tournament/countryLeaderboard",
+							"protocol": "http",
 							"host": [
-								"{{BASE_API_URL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
 								"v1",
 								"tournament",
 								"countryLeaderboard"
@@ -122,11 +134,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_API_URL}}/v1/tournament/groupLeaderboard/1",
+							"raw": "http://localhost:8080/api/v1/tournament/groupLeaderboard/1",
+							"protocol": "http",
 							"host": [
-								"{{BASE_API_URL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
 								"v1",
 								"tournament",
 								"groupLeaderboard",
@@ -142,16 +157,50 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_API_URL}}/v1/tournament/rank/9/1",
+							"raw": "http://localhost:8080/api/v1/tournament/rank/9/1",
+							"protocol": "http",
 							"host": [
-								"{{BASE_API_URL}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"api",
 								"v1",
 								"tournament",
 								"rank",
 								"9",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Claim Reward",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 4,\n    \"tournamentId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/tournament/claimReward",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"tournament",
+								"claimReward"
 							]
 						}
 					},
