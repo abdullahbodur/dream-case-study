@@ -12,7 +12,7 @@ parser.add_argument('--environment', type=str, default='local', help='Environmen
 parser.add_argument('--jmeter_home', type=str, default='/opt/apache-jmeter-5.4.1', help='JMeter home directory')
 parser.add_argument('--project_dir', type=str, help='Project directory')
 parser.add_argument('--report_dir', type=str, help='Report directory')
-parser.add_argument('--service-host', type=str, default='localhost', help='Service host')
+parser.add_argument('--service_host', type=str, default='localhost', help='Service host')
 args = parser.parse_args()
 
 JMETER_HOME = os.getenv('JMETER_HOME')
@@ -28,6 +28,8 @@ if args.report_dir is not None:
   report_dir = args.report_dir
 else:
   report_dir = os.path.join(current_dir, 'deployment', 'performance-test', 'reports')
+
+BASE_URL = f'http://{args.service_host}:8080'
 
 if args.environment == 'local':
   # current_dir has jmeter directory
@@ -54,14 +56,10 @@ if args.environment == 'local':
   DATABASE_URL = 'jdbc:mysql://localhost:3306/mysql-db'
   DATABASE_USER = 'username'
   DATABASE_PASSWORD = 'password'
-  BASE_URL = 'http://localhost:8080'
   os.environ['DATABASE_URL'] = DATABASE_URL
   os.environ['DATABASE_USER'] = DATABASE_USER
   os.environ['DATABASE_PASSWORD'] = DATABASE_PASSWORD
   os.environ['BASE_URL'] = BASE_URL
-else:
-  BASE_URL = os.getenv('BASE_URL')
-
 # Load test configurations from configuration.json
 with open(os.path.join(plan_dir, 'configuration.json')) as f:
     test_configurations = json.load(f)
