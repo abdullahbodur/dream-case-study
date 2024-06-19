@@ -5,6 +5,7 @@
 ![Build](https://github.com/abdullahbodur/dream-case-study/actions/workflows/build.yaml/badge.svg)
 
 ### Introduction
+
 This project is a simple backend application that is created for the Dream Case Study.
 
 ### Redis Methodology
@@ -52,6 +53,7 @@ cd deployment && docker-compose up -d
 ```
 
 ### Diagrams
+
 #### Project Organization Diagram
 
 ```mermaid
@@ -95,7 +97,6 @@ graph LR
     I --> IB[application.yml]
     I --> IC[db]
 ```
-    
 
 #### Docker Compose Diagram
 
@@ -185,6 +186,26 @@ sequenceDiagram
 ### Postman Collection
 
 You can find the postman collection [here](postman/dream_case_study.postman_collection.json).
+
+### Performance Testing
+
+On each commit, the application is tested with the performance tests. You can find the performance
+test workflow [here](.github/workflows/build.yaml).
+After each performance test workflow run, it generates a simplified overview of the performance test
+as table:
+
+| transaction            | sampleCount            | errorCount | errorPct | meanResTime | medianResTime | minResTime | maxResTime | pct1ResTime | pct2ResTime        | pct3ResTime       | throughput         | receivedKBytesPerSec | sentKBytesPerSec | Transaction |
+|------------------------|------------------------|------------|----------|-------------|---------------|------------|------------|-------------|--------------------|-------------------|--------------------|----------------------|------------------|-------------|
+| Junit Performance Test | Junit Performance Test | 100        | 0        | 0.0         | 22.16         | 17.0       | 12.0       | 417.0       | 25.900000000000006 | 27.94999999999999 | 413.24999999999807 | 5.329354082285227    | 0.0              | 0.0         |
+| Total                  | Total                  | 100        | 0        | 0.0         | 22.16         | 17.0       | 12.0       | 417.0       | 25.900000000000006 | 27.94999999999999 | 413.24999999999807 | 5.329354082285227    | 0.0              | 0.0         |
+
+Also it generates a detailed report for the performance test. You can find the detailed report from the artifacts
+section of the workflow.
+
+<img src="docs/artifacts.png" alt="Artifacts" width="100%"/>
+
+#### Detailed Report
+<img src="docs/performance-test-detailed.png" alt="Detailed Report" width="100%"/>
 
 ### TODO
 
