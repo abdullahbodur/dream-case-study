@@ -1,33 +1,33 @@
 version: '3.9'
 name: backend-engineering-case-study
 services:
-#  app:
-#    image: backend-engineering-case-study:1.0
-#    container_name: backend-engineering-case-study
-#    build:
-#      context: ..
-#      dockerfile: deployment/Dockerfile
-#    ports:
-#      - '8080:8080'
-#    networks:
-#      - 'local-network'
-#    environment:
-#      JDBC_DATABASE_URL: jdbc:mysql://case-mysqldb:3306/mysql-db
-#      JDBC_DATABASE_USERNAME: user
-#      JDBC_DATABASE_PASSWORD: password
-#      REDIS_HOST: redis
-#      REDIS_PORT: 6379
-#      REDIS_PASSWORD: password
-#      REDIS_TIMEOUT: 2000
-#      DEFAULT_COIN_AMOUNT: 5000
-#      RECEIVE_COIN_AMOUNT: 25
-#      TIMEZONE: UTC
-#      TOURNAMENT_START_CRON: '0 0 0 * * ?'
-#      TOURNAMENT_END_CRON: '0 0 20 * * ?'
-#      FIRST_PLACE_REWARD: 10000
-#      SECOND_PLACE_REWARD: 5000
-#      TOURNAMENT_MIN_LEVEL: 20
-#      TOURNAMENT_MIN_COIN_BALANCE: 1000
+  app:
+    image: backend-engineering-case-study:1.0
+    container_name: backend-engineering-case-study
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    ports:
+      - '8080:8080'
+    networks:
+      - 'local-network'
+    environment:
+      JDBC_DATABASE_URL: jdbc:mysql://case-mysqldb:3306/mysql-db
+      JDBC_DATABASE_USERNAME: user
+      JDBC_DATABASE_PASSWORD: password
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: password
+      REDIS_TIMEOUT: 2000
+      DEFAULT_COIN_AMOUNT: 5000
+      RECEIVE_COIN_AMOUNT: 25
+      TIMEZONE: UTC
+      TOURNAMENT_START_CRON: '0 0 0 * * ?'
+      TOURNAMENT_END_CRON: '0 0 20 * * ?'
+      FIRST_PLACE_REWARD: 10000
+      SECOND_PLACE_REWARD: 5000
+      TOURNAMENT_MIN_LEVEL: 20
+      TOURNAMENT_MIN_COIN_BALANCE: 1000
   mysqldb:
     image: mysql:8.0.28-oracle
     container_name: case-mysqldb
