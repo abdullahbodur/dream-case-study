@@ -296,7 +296,7 @@ If the running environment is github actions:
     - [X] Refactor error responses for the application
 - [X] Create more complex structure for the application
 - [X] Write unit tests for the functions in `src/` directory
-- [ ] Write github workflow to run the tests
+- [X] Write github workflow to run the tests
     - [X] Add mvn unit tests to the github workflow
     - [X] Add code coverage to the github workflow
     - [X] Add performance tests to the github workflow
