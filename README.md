@@ -218,6 +218,76 @@ section of the workflow.
 
 <img src="docs/performance-test-detailed.png" alt="Detailed Report" width="100%"/>
 
+#### configuration.json
+
+In this file, I aimed to configure some basic jmeter parameters easily. Also, you can add a new test
+by adding a new json object to the configuration.json file. You can find the related
+file [here](app-performance-test/src/test/jmeter/configuration.json)
+
+```json
+[
+  {
+    "testName": "CreateNewUser",
+    "testDescription": "Create a new user",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "createUserTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
+  },
+  {
+    "testName": "UpdateLevelUser",
+    "testDescription": "Update level of a user",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "updateLevelTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
+  }
+]
+```
+
+#### How to run the performance tests Locally
+
+In case you want to run the performance tests locally, you can use the following command:
+
+```shell
+  cd deployment/performance-test
+  docker compose up -d --build --force-recreate
+```
+
+It will create a simple non-gui docker environment for the performance tests. You can find the
+related
+docker-compose file [here](deployment/performance-test/docker-compose.yml). After the environment is
+up
+It will check the application with trying rest api calls over /status endpoint. You can find the
+related
+script [here](scripts/jmeter_run.py).
+
+If you have already up and running docker environment. And, dont want to wait docker build stages.
+Still, you can use jmeter_run.py script to run the performance tests. With parameterized
+methodology:
+
+If the running environment is local:
+
+- defines user variables for the jmeter test
+- builds the project with maven
+- moves required jar files and configures with configuration.json file
+- runs the jmeter tests with the given parameters
+- creates a detailed report
+
+```shell
+  cd scripts
+  python3 jmeter_run.py
+```
+
+If the running environment is github actions:
+
+- fetches user variables
+- configures the jmeter tests with the given parameters
+- runs the jmeter tests with the given parameters
+- creates a detailed report and saves it as proper artifact
+
 ### TODO
 
 - [x] Create a simple spring boot application that creates table in the database

@@ -61,6 +61,7 @@ jobs:
         run: |
           # get current time utc
           current_time=$(date -u +"%H:%M")
+          echo "Current time is $current_time"
           if [[ "$current_time" > "23:58" && "$current_time" < "00:03" ]]; then
               echo "Waiting for 5 minutes"
               sleep 300
