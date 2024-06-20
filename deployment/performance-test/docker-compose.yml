@@ -23,7 +23,7 @@ services:
       RECEIVE_COIN_AMOUNT: 25
       TIMEZONE: UTC
       TOURNAMENT_START_CRON: '0 0 0 * * ?'
-      TOURNAMENT_END_CRON: '0 0 20 * * ?'
+      TOURNAMENT_END_CRON: '0 58 23 * * ?'
       FIRST_PLACE_REWARD: 10000
       SECOND_PLACE_REWARD: 5000
       TOURNAMENT_MIN_LEVEL: 1
@@ -59,6 +59,18 @@ services:
       - '3306:3306'
     volumes:
       - case-mysql-data:/var/lib/case-mysqldb
+  phpmyadmin:
+    image: phpmyadmin:5.2.0
+    container_name: PhpMyAdmin
+    restart: always
+    ports:
+      - '7777:80'
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - 'local-network'
+    depends_on:
+      - mysqldb
   redis:
     image: redis:7-alpine
     container_name: redis-server
@@ -68,8 +80,21 @@ services:
       - '6379:6379'
     networks:
       - 'local-network'
+  redis-insight:
+    image: redis/redisinsight:latest
+    container_name: redis-insight
+    restart: always
+    ports:
+      - '5540:5540'
+    networks:
+      - 'local-network'
+    depends_on:
+      - redis
+    volumes:
+      - redisinsight:/data
 volumes:
   case-mysql-data:
+  redisinsight:
 
 networks:
   local-network:
