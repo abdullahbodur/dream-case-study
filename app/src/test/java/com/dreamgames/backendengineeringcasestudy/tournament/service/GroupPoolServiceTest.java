@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java.util.Vector;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,10 +31,10 @@ class GroupPoolServiceTest {
   private GroupPoolService groupPoolService;
 
   @MockBean
-  private RedisTemplate<String, Stack<Number>> groupPool;
+  private RedisTemplate<String, Number> groupPool;
 
   @MockBean
-  private ValueOperations<String, Stack<Number>> valueOperations;
+  private ValueOperations<String, Number> valueOperations;
 
   @BeforeEach
   void setUp() {
@@ -45,110 +46,48 @@ class GroupPoolServiceTest {
   @Test
   public void cleanupGroupPoolSuccessfully() {
     groupPoolService.cleanupGroupPool();
-    verify(groupPool, times(Country.values().length)).opsForValue();
-    verify(valueOperations, times(1)).set(eq(Country.TURKEY.name()), argThat(
-        Vector::isEmpty
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.GERMANY.name()), argThat(
-        Vector::isEmpty
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.FRANCE.name()), argThat(
-        Vector::isEmpty
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_STATES.name()), argThat(
-        Vector::isEmpty
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_KINGDOM.name()), argThat(
-        Vector::isEmpty
-    ));
+    for (Country country : Country.values()) {
+      verify(groupPool, times(1)).delete("groupPool:" + country.name() + ":*");
+    }
   }
 
   @DisplayName("Get available group successfully")
   @Test
   public void getAvailableGroupSuccessfully() {
-    Stack<Number> groupStack = new Stack<>();
-    groupStack.push(1);
-    when(valueOperations.get(Country.TURKEY.name())).thenReturn(groupStack);
+    Set<String> keys = Set.of("groupPool:" + Country.TURKEY.name() + ":1");
+    when(groupPool.keys("groupPool:" + Country.TURKEY.name() + ":*")).thenReturn(keys);
+    when(valueOperations.get(anyString())).thenReturn(1L);
     groupPoolService.getAvailableGroup(Country.TURKEY);
-    verify(groupPool, times(2)).opsForValue();
+    verify(groupPool, times(1)).keys("groupPool:" + Country.TURKEY.name() + ":*");
+    verify(groupPool, times(1)).delete("groupPool:" + Country.TURKEY.name() + ":1");
   }
 
   @DisplayName("Get available group when no group is available")
   @Test
   public void getAvailableGroupWhenNoGroupIsAvailable() {
-    Stack<Number> groupStack = new Stack<>();
-    when(valueOperations.get(anyString())).thenReturn(groupStack);
+    when(groupPool.keys("groupPool:" + Country.GERMANY.name() + ":*")).thenReturn(null);
     groupPoolService.getAvailableGroup(Country.GERMANY);
-    verify(groupPool, times(1)).opsForValue();
+    verify(groupPool, times(1)).keys("groupPool:" + Country.GERMANY.name() + ":*");
+    verify(groupPool, times(0)).delete(anyString());
   }
 
-  @DisplayName("Get available group when group stack is null")
+  @DisplayName("Get available group when key set is empty")
   @Test
   public void getAvailableGroupWhenGroupStackIsNull() {
-    when(valueOperations.get(anyString())).thenReturn(null);
+    when(groupPool.keys("groupPool:" + Country.GERMANY.name() + ":*")).thenReturn(Set.of());
     groupPoolService.getAvailableGroup(Country.GERMANY);
-    verify(groupPool, times(1)).opsForValue();
+    verify(groupPool, times(1)).keys("groupPool:" + Country.GERMANY.name() + ":*");
+    verify(groupPool, times(0)).delete(anyString());
   }
 
   @DisplayName("Add group to pool successfully when all country stacks are empty")
   @Test
   public void addGroupToPoolSuccessfully() {
-    when(valueOperations.get(anyString())).thenReturn(null);
     groupPoolService.addGroupToPool(1L, List.of(Country.GERMANY));
-    verify(valueOperations, times(1)).set(eq(Country.TURKEY.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.FRANCE.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_STATES.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_KINGDOM.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.TURKEY.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.FRANCE.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_STATES.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_KINGDOM.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-  }
-
-  @DisplayName("Add group to pool when some country stacks are not empty")
-  @Test
-  public void addGroupToPoolWhenSomeCountryStacksAreNotEmpty() {
-    Stack<Number> groupStackTR = new Stack<>();
-    groupStackTR.push(2);
-    Stack<Number> groupStackFR = new Stack<>();
-    groupStackFR.push(3);
-    when(valueOperations.get(Country.TURKEY.name())).thenReturn(groupStackTR);
-    when(valueOperations.get(Country.FRANCE.name())).thenReturn(groupStackFR);
-    when(valueOperations.get(Country.UNITED_STATES.name())).thenReturn(null);
-    when(valueOperations.get(Country.UNITED_KINGDOM.name())).thenReturn(null);
-    groupPoolService.addGroupToPool(1L, List.of(Country.GERMANY));
-    verify(valueOperations, times(1)).get(eq(Country.TURKEY.name()));
-    verify(valueOperations, times(1)).get(eq(Country.FRANCE.name()));
-    verify(valueOperations, times(1)).get(eq(Country.UNITED_STATES.name()));
-    verify(valueOperations, times(1)).get(eq(Country.UNITED_KINGDOM.name()));
-    verify(valueOperations, times(1)).set(eq(Country.TURKEY.name()), argThat(
-        stack -> stack.size() == 2 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.FRANCE.name()), argThat(
-        stack -> stack.size() == 2 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_STATES.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
-    verify(valueOperations, times(1)).set(eq(Country.UNITED_KINGDOM.name()), argThat(
-        stack -> stack.size() == 1 && stack.peek().equals(1L)
-    ));
+    for (Country country : List.of(Country.FRANCE, Country.TURKEY, Country.UNITED_KINGDOM,
+        Country.UNITED_STATES)) {
+      verify(valueOperations, times(1)).set(eq("groupPool:" + country.name() + ":1"), eq(1L));
+    }
   }
 
   @DisplayName("Get remaining country slots successfully")

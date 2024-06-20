@@ -2,6 +2,7 @@ package com.dreamgames.backendengineeringcasestudy.tournament.service;
 
 import com.dreamgames.backendengineeringcasestudy.enumaration.Country;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +19,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GroupPoolService {
 
-  private final RedisTemplate<String, Stack<Number>> groupPool;
+  private final RedisTemplate<String, Number> groupPool;
 
   /**
    * Cleans up the group pool by setting an empty stack for each country.
    */
   public void cleanupGroupPool() {
     List<Country> allCountries = List.of(Country.values());
-    allCountries.forEach(country -> groupPool.opsForValue().set(country.name(), new Stack<>()));
+    allCountries.forEach(country -> groupPool.delete("groupPool:" + country.name() + ":*"));
   }
 
   /**
@@ -36,12 +37,12 @@ public class GroupPoolService {
    * @return the ID of the available group, or null if no group is available
    */
   public Long getAvailableGroup(Country newUserCountry) {
-    Stack<Number> groupStack = groupPool.opsForValue().get(newUserCountry.name());
-    if (groupStack == null || groupStack.isEmpty()) {
+    Set<String> keys = groupPool.keys("groupPool:" + newUserCountry.name() + ":*");
+    if (keys == null || keys.isEmpty()) {
       return null;
     }
-    Long groupId = groupStack.pop().longValue();
-    groupPool.opsForValue().set(newUserCountry.name(), groupStack);
+    Long groupId = pickRandomGroup(keys);
+    groupPool.delete("groupPool:" + newUserCountry.name() + ":" + groupId);
     return groupId;
   }
 
@@ -54,14 +55,9 @@ public class GroupPoolService {
    */
   public void addGroupToPool(Long groupId, List<Country> reservedCountrySlots) {
     List<Country> remainingCountrySlots = getRemainingCountrySlots(reservedCountrySlots);
-    for (Country country : remainingCountrySlots) {
-      Stack<Number> groupStack = groupPool.opsForValue().get(country.name());
-      if (groupStack == null) {
-        groupStack = new Stack<>();
-      }
-      groupStack.push(groupId);
-      groupPool.opsForValue().set(country.name(), groupStack);
-    }
+    remainingCountrySlots.forEach(country -> groupPool.opsForValue()
+        .set("groupPool:" + country.name() + ":" + groupId,
+            groupId));
   }
 
   /**
@@ -76,5 +72,27 @@ public class GroupPoolService {
     List<Country> allCountries = new java.util.ArrayList<>(List.of(Country.values()));
     allCountries.removeAll(countries);
     return allCountries;
+  }
+
+  /**
+   * Picks a random group from the given set of keys.
+   *
+   * @param keys the keys of the group pool entries
+   * @return the ID of a random group from the given set of keys
+   */
+  private Long pickRandomGroup(Set<String> keys) {
+    List<String> keyList = new java.util.ArrayList<>(keys);
+    int randomIndex = new java.util.Random().nextInt(keyList.size());
+    return getGroupNameFromKey(keyList.get(randomIndex));
+  }
+
+  /**
+   * Gets the group ID from the key of a group pool entry.
+   *
+   * @param key the key of the group pool entry
+   * @return the group ID from the key
+   */
+  private Long getGroupNameFromKey(String key) {
+    return Long.parseLong(key.split(":")[2]);
   }
 }

@@ -16,5 +16,41 @@
     "threadCount": 20,
     "loopCount": 20,
     "duration": 20
+  },
+  {
+    "testName": "EnterTournament",
+    "testDescription": "Enter a tournament",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "enterTournamentTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
+  },
+  {
+    "testName": "UpdateLevelUserWhenEnterTournament",
+    "testDescription": "Update level of a user when user enters a tournament",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "updateLevelTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
+  },
+  {
+    "testName": "GetCountryLeaderboard",
+    "testDescription": "Get Country Leaderboard",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "getCountryLeaderboardTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
+  },
+  {
+    "testName": "GetGroupLeaderboard",
+    "testDescription": "Get Group Leaderboard",
+    "className": "com.dreamgames.backendengineeringcasestudy.PerformanceTest",
+    "methodName": "getGroupLeaderboardTest",
+    "threadCount": 20,
+    "loopCount": 20,
+    "duration": 20
   }
 ]

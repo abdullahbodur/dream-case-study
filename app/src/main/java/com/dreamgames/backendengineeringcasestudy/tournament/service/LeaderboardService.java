@@ -242,7 +242,12 @@ public class LeaderboardService {
    * @return the country leaderboard
    */
   public List<CountryLeaderboardDTO> getCountryLeaderboard() {
-    return countryLeaderboard.opsForValue().get("countryLeaderboardPool");
+    List<CountryLeaderboardDTO> leaderboardDTO = countryLeaderboard.opsForValue()
+        .get("countryLeaderboardPool");
+    if (leaderboardDTO == null) {
+      leaderboardDTO = initCountryLeaderboard();
+    }
+    return leaderboardDTO;
   }
 
   /**

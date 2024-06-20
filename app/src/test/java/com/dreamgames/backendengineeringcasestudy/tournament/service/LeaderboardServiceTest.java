@@ -574,6 +574,17 @@ class LeaderboardServiceTest {
     assertEquals(110, result.get(1).getTotalScore());
   }
 
+  @DisplayName("Get country leaderboard with null country leaderboard")
+  @Test
+  public void getCountryLeaderboardWithNullCountryLeaderboard() {
+    when(countryLeaderboardOps.get(
+        "countryLeaderboardPool"
+    )).thenReturn(null);
+    List<CountryLeaderboardDTO> result = leaderboardService.getCountryLeaderboard();
+    verify(countryLeaderboardOps, times(1)).get("countryLeaderboardPool");
+    assertEquals(List.of(Country.values()).size(), result.size());
+  }
+
   @DisplayName("Get groupId from userGroupPool")
   @Test
   public void getGroupIdFromUserGroupPool() {

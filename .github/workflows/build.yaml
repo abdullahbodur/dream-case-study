@@ -56,6 +56,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      # check if the time is utc between 11:58 pm and 12:03 am wait for 5 minutes
+      - name: Wait for 5 minutes
+        run: |
+          # get current time utc
+          current_time=$(date -u +"%H:%M")
+          if [[ "$current_time" > "23:58" && "$current_time" < "00:03" ]]; then
+              echo "Waiting for 5 minutes"
+              sleep 300
+          fi
       - name: Run docker-compose
         working-directory: deployment/performance-test
         run: docker-compose up -d
