@@ -194,19 +194,47 @@ test workflow [here](.github/workflows/build.yaml).
 After each performance test workflow run, it generates simplified overviews of the performance tests
 as tables:
 
+#### GetCountryLeaderboard
+
+| transaction             | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime        | pct2ResTime      | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
+|-------------------------|-------------|------------|----------|-------------------|---------------|------------|------------|--------------------|------------------|-------------|-------------------|----------------------|------------------|
+| Total                   | 400         | 0          | 0.0      | 18.81750000000002 | 13.0          | 1.0        | 100.0      | 35.900000000000034 | 88.5499999999999 | 96.0        | 766.2835249042146 | 0.0                  | 0.0              |
+| Get Country Leaderboard | 400         | 0          | 0.0      | 18.81750000000002 | 13.0          | 1.0        | 100.0      | 35.900000000000034 | 88.5499999999999 | 96.0        | 766.2835249042146 | 0.0                  | 0.0              |
+
+#### UpdateLevelUserWhenEnterTournament
+
+| transaction                                          | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime        | pct2ResTime | pct3ResTime        | throughput         | receivedKBytesPerSec | sentKBytesPerSec |
+|------------------------------------------------------|-------------|------------|----------|-------------------|---------------|------------|------------|--------------------|-------------|--------------------|--------------------|----------------------|------------------|
+| Total                                                | 400         | 0          | 0.0      | 58.90999999999996 | 39.0          | 9.0        | 272.0      | 118.30000000000024 | 199.95      | 241.96000000000004 | 284.29282160625445 | 0.0                  | 0.0              |
+| Update level of a user when user enters a tournament | 400         | 0          | 0.0      | 58.90999999999996 | 39.0          | 9.0        | 272.0      | 118.30000000000024 | 199.95      | 241.96000000000004 | 284.29282160625445 | 0.0                  | 0.0              |
+
+#### EnterTournament
+
+| transaction        | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime | pct2ResTime       | pct3ResTime        | throughput         | receivedKBytesPerSec | sentKBytesPerSec |
+|--------------------|-------------|------------|----------|-------------------|---------------|------------|------------|-------------|-------------------|--------------------|--------------------|----------------------|------------------|
+| Enter a tournament | 400         | 0          | 0.0      | 67.06250000000013 | 60.5          | 15.0       | 230.0      | 91.0        | 168.8999999999993 | 212.97000000000003 | 261.95153896529143 | 0.0                  | 0.0              |
+| Total              | 400         | 0          | 0.0      | 67.06250000000013 | 60.5          | 15.0       | 230.0      | 91.0        | 168.8999999999993 | 212.97000000000003 | 261.95153896529143 | 0.0                  | 0.0              |
+
+#### GetGroupLeaderboard
+
+| transaction           | sampleCount | errorCount | errorPct | meanResTime | medianResTime | minResTime | maxResTime | pct1ResTime | pct2ResTime       | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
+|-----------------------|-------------|------------|----------|-------------|---------------|------------|------------|-------------|-------------------|-------------|-------------------|----------------------|------------------|
+| Total                 | 400         | 0          | 0.0      | 17.9325     | 14.0          | 1.0        | 82.0       | 34.0        | 74.29999999999984 | 78.0        | 806.4516129032257 | 0.0                  | 0.0              |
+| Get Group Leaderboard | 400         | 0          | 0.0      | 17.9325     | 14.0          | 1.0        | 82.0       | 34.0        | 74.29999999999984 | 78.0        | 806.4516129032257 | 0.0                  | 0.0              |
+
 #### UpdateLevelUser
 
-| transaction            | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime       | pct2ResTime        | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
-|------------------------|-------------|------------|----------|-------------------|---------------|------------|------------|-------------------|--------------------|-------------|-------------------|----------------------|------------------|
-| Update level of a user | 400         | 0          | 0.0      | 54.60500000000003 | 38.0          | 5.0        | 312.0      | 79.90000000000003 | 301.49999999999807 | 311.99      | 306.5134099616858 | 0.0                  | 0.0              |
-| Total                  | 400         | 0          | 0.0      | 54.60500000000003 | 38.0          | 5.0        | 312.0      | 79.90000000000003 | 301.49999999999807 | 311.99      | 306.5134099616858 | 0.0                  | 0.0              |
+| transaction            | sampleCount | errorCount | errorPct | meanResTime | medianResTime | minResTime | maxResTime | pct1ResTime       | pct2ResTime       | pct3ResTime | throughput         | receivedKBytesPerSec | sentKBytesPerSec |
+|------------------------|-------------|------------|----------|-------------|---------------|------------|------------|-------------------|-------------------|-------------|--------------------|----------------------|------------------|
+| Update level of a user | 400         | 0          | 0.0      | 53.4875     | 42.0          | 6.0        | 235.0      | 82.80000000000007 | 223.3999999999985 | 233.0       | 298.28486204325134 | 0.0                  | 0.0              |
+| Total                  | 400         | 0          | 0.0      | 53.4875     | 42.0          | 6.0        | 235.0      | 82.80000000000007 | 223.3999999999985 | 233.0       | 298.28486204325134 | 0.0                  | 0.0              |
 
 #### CreateNewUser
 
-| transaction       | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime       | pct2ResTime       | pct3ResTime | throughput        | receivedKBytesPerSec | sentKBytesPerSec |
-|-------------------|-------------|------------|----------|-------------------|---------------|------------|------------|-------------------|-------------------|-------------|-------------------|----------------------|------------------|
-| Total             | 400         | 0          | 0.0      | 77.23250000000004 | 58.0          | 7.0        | 421.0      | 98.90000000000003 | 393.2499999999971 | 420.0       | 228.8329519450801 | 0.0                  | 0.0              |
-| Create a new user | 400         | 0          | 0.0      | 77.23250000000004 | 58.0          | 7.0        | 421.0      | 98.90000000000003 | 393.2499999999971 | 420.0       | 228.8329519450801 | 0.0                  | 0.0              |
+| transaction       | sampleCount | errorCount | errorPct | meanResTime       | medianResTime | minResTime | maxResTime | pct1ResTime        | pct2ResTime       | pct3ResTime | throughput         | receivedKBytesPerSec | sentKBytesPerSec |
+|-------------------|-------------|------------|----------|-------------------|---------------|------------|------------|--------------------|-------------------|-------------|--------------------|----------------------|------------------|
+| Total             | 400         | 0          | 0.0      | 96.76749999999996 | 69.5          | 17.0       | 520.0      | 137.90000000000003 | 485.5999999999974 | 507.99      | 180.83182640144665 | 0.0                  | 0.0              |
+| Create a new user | 400         | 0          | 0.0      | 96.76749999999996 | 69.5          | 17.0       | 520.0      | 137.90000000000003 | 485.5999999999974 | 507.99      | 180.83182640144665 | 0.0                  | 0.0              |
 
 Also it generates a detailed report for the performance test. You can find the detailed report from
 the artifacts
